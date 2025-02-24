@@ -1,18 +1,28 @@
 import Elysia, {t} from 'elysia';
-import * as mongoose from 'mongoose';
+import User from '../models/UserModel';
+import { password } from 'bun';
 
-const rule = {
-    create: t.Object({}),
-    update: t.Object({}),
-    delete: t.Object({})
-}
-
-export default new Elysia()
+const controllerAuthen = new Elysia()
 .get('/', () => {
 
 })
-.post('/create', () => {
+.post('/register', async ({ body }) => {
     
+    const exists = await User.find({ email: body.email})
+
+    if (exists) return
+
+    const user = new User({
+        name: body.name,
+        email: body.email,
+        password: body.passsword
+    })
+}, {
+    body: t.Object({
+        name: t.String({ maxLength: 50}),
+        email: t.String({ format: 'email' }),
+        passsword: t.String({ maxLength: 16, minLength: 8})
+    })
 })
 .put('/update', () => {
     
@@ -20,3 +30,5 @@ export default new Elysia()
 .delete('/delete', () => {
     
 })
+
+export default controllerAuthen
