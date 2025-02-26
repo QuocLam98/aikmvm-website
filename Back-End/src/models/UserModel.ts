@@ -6,15 +6,21 @@ interface IUser {
     email: string,
     passsword: string,
     credit: number,
-    bankAccount: string
+    bankAccount: string,
+    createdAt: Date,
+    updatedAt: Date,
+    active: boolean,
 }
 
 const UserSchema = new Schema<IUser>({
     name: { type: String, required: true},
     email: { type: String, required: true, unique: true,},
     passsword: { type: String, required: true},
-    credit: { type: Number },
-    bankAccount: { type: String }
+    credit: { type: Number, default: 0 },
+    bankAccount: { type: String },
+    active: { type: Boolean, required: true}
+}, {
+    timestamps: true
 })
 
 export default model<IUser>('User', UserSchema)

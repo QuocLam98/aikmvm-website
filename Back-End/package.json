@@ -12,6 +12,7 @@
     "@elysiajs/cors": "^1.2.0",
     "@elysiajs/jwt": "^1.2.0",
     "@elysiajs/swagger": "^1.2.1",
+    "argon2": "^0.41.1",
     "elysia": "^1.2.12",
     "mongoose": "^8.10.1",
     "openai": "^4.83.0"
