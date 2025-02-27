@@ -6,7 +6,9 @@ const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$'})
 
 const controllerAuthen = new Elysia()
 .get('/user/:id', ({ params }) => {
-    User.findById(params.id)
+   const userFind = User.findById(params.id)
+
+   return userFind
 }, {
     params: t.Object({ id: idMongodb})
 })
@@ -14,9 +16,11 @@ const controllerAuthen = new Elysia()
     
     const exists = await User.find({ email: body.email})
 
-    if (exists) return
+    if (exists) return { message: 'fail',
+        status: 404
+    }
 
-    const user = await User.create({
+    await User.create({
         name: body.name,
         email: body.email,
         password: await argon2.hash(body.passsword),
@@ -32,7 +36,9 @@ const controllerAuthen = new Elysia()
 .put('/update/:id', async ({ params, body }) => {
     const user = User.findById(params.id)
 
-    if (!user) return
+    if (!user) return { message: 'fail',
+        status: 404
+    }
 
     await user.updateOne({
         name: body.name,

@@ -5,26 +5,32 @@ import UserModel from '../models/UserModel';
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$'})
 
 const controllerBot = new Elysia()
-.get('/', () => {
-    BotModel.find()
+.get('/list', () => {
+   const listBot = BotModel.find()
+
+   return listBot
 })
 .get('/listByUserId:id', async ({ params }) => {
 
     const user = await UserModel.findById(params.id)
 
-    if (!user) return
+    if (!user) return { message: 'fail',
+        status: 404
+    } 
 
-    BotModel.find(user.id)
+    const listBot = BotModel.find(user.id)
+
+    return listBot
 },{
     params: t.Object({ id: idMongodb})
 })
 .post('/registerBot', async ({ body }) => {
     
-    const exists = await BotModel.find({ name: body.name})
+    // const exists = await BotModel.find({ name: body.name})
 
-    if (exists) return
+    // if (exists) return 
 
-    const bot = await BotModel.create({
+     await BotModel.create({
         name: body.name,
         description: body.description,
         templateMessage: body.templateMessage,
