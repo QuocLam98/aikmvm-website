@@ -26,9 +26,12 @@ const controllerBot = new Elysia()
 })
 .post('/registerBot', async ({ body }) => {
     
-    // const exists = await BotModel.find({ name: body.name})
+    const exists = await BotModel.find({ name: body.name})
 
-    // if (exists) return 
+    if (exists) return {
+        message: 'fail',
+        status: 404
+    }
 
      await BotModel.create({
         name: body.name,
@@ -36,6 +39,11 @@ const controllerBot = new Elysia()
         templateMessage: body.templateMessage,
         active: true,
     })
+
+    return {
+        message: 'created',
+        status: 201
+    }
 }, {
     body: t.Object({
         name: t.String({ maxLength: 50}),

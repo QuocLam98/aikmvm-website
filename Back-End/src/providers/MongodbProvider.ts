@@ -1,5 +1,19 @@
-import { connect } from "mongoose";
+import { defineProvider } from './Application'
+import ConfigProvider from './ConfigProvider'
+import mongoose from 'mongoose'
+import LoggerProvider from './LoggerProvider'
 
-const connectDb = await connect('mongodb://localhost:27017');
+export default defineProvider([
+  ConfigProvider,
+  LoggerProvider
+], async ({ service, on }) => {
 
-export default connectDb
+  service.logger.info('Connecting to MongoDB...')
+  await mongoose.connect(service.config.mongo.dsn)
+  service.logger.info('Connected to MongoDB')
+
+  on('stop', async () => {
+    await mongoose.disconnect()
+    service.logger.info('Disconnected from MongoDB')
+  })
+})
