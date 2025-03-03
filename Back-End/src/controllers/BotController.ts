@@ -10,7 +10,7 @@ const controllerBot = new Elysia()
 
    return listBot
 })
-.get('/listByUserId:id', async ({ params }) => {
+.get('/listByUserId/:id', async ({ params }) => {
 
     const user = await UserModel.findById(params.id)
 
