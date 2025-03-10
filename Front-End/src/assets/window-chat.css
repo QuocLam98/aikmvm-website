@@ -1,0 +1,8 @@
+.window-chat {
+    background-color: oklch(.968 .007 247.896);
+    padding: 16px;
+    border-radius: 16px;
+}
+.chat-header-layout {
+    background: linear-gradient(to right bottom, rgb(4, 0, 11), rgb(5, 0, 12))
+}

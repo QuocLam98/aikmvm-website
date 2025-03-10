@@ -1,3 +1,10 @@
 @import './base.css';
 @import "tailwindcss";
 @plugin "daisyui";
+
+.container-flur {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+
+}

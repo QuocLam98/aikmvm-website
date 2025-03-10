@@ -1,66 +1,6 @@
-<style>
-.container-flur {
-    width: 90%;
-    max-width: 1400px;
-    margin: auto;
-
-}
-
-.header-home {
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.header-button {
-    display: flex;
-}
-
-.button-login {
-    background-color: #8300e9;
-    padding: 10px 15px !important;
-    border-radius: 25px;
-    text-transform: uppercase;
-    color: #fff !important;
-    text-align: center;
-}
-.button-login a {
-    color: #fff !important;
-}
-
-.button-login:hover {
-    opacity: .7;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-.lg-li {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-}
-.lg-li li a {
-    color: rgba(0, 0, 0, .6);
-    text-decoration: none;
-    display: block;
-    position: relative;
-    -webkit-transition: opacity .4s ease-in-out, background-color .4s ease-in-out;
-    transition: opacity .4s ease-in-out, background-color .4s ease-in-out;
-}
-
-.lg-li li a:hover {
-    opacity: .7;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-/* #main-header {
-    position: fixed;
-    top: 0
-} */
-</style>
+<script setup lang="ts">
+import '../assets/header.css'
+</script>
 
 <template>
     <header id="main-header">
