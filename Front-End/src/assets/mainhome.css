@@ -8,13 +8,55 @@
     background-color: #e9e9e9;
 }
 .main-about {
+    padding-bottom: 50px;
+    padding-top: 50px;
 }
 .text-strong {
  line-height: 2rem;
  text-align: justify;
  font-size: 20px;
 }
-
+.bg-benefit {
+    background-image: url('./benefit.svg');
+    background-repeat: repeat;
+    background-color: #f4f4f4;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.benefit {
+    position: relative;
+}
+.benefit-cotent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    gap: 32px;
+}
+.card-benefit {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 16px;
+    align-items: center;
+    gap: 32px;
+}
+.icon-benefit svg{
+    width: 100px;
+}
+.card-benefit h1, .benefit-cotent h1 {
+    font-size: 30px;
+    font-weight: 600;
+}
+.container-benefit {
+    position: sticky;
+}
 @media only screen and (min-width: 1600px) {
     .about {
         padding: 64px 0;
