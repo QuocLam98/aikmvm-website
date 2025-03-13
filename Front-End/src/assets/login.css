@@ -1,0 +1,20 @@
+.login {
+    background-image: linear-gradient(var(--tw-gradient-stops));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 64px;
+}
+.login h1 {
+    font-size: 64px;
+    font-weight: 600;
+}
+/* Hiệu ứng fade */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+  
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+  }

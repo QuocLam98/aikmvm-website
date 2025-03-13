@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@iconify/tailwind4": "^1.0.6",
     "@tailwindcss/vite": "^4.0.11",
     "axios": "^1.8.1",
     "tailwindcss": "^4.0.11",

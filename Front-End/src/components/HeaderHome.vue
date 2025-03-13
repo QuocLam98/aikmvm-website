@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import '../assets/header.css'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+
+const goToLogin = () => {
+  router.push('/login');
+};
 </script>
 
 <template>
@@ -27,7 +34,7 @@ import '../assets/header.css'
                             </a>
                         </li>
                         <li class="button-login">
-                            <a href="/">
+                            <a href="/login">
                                 ĐĂNG NHẬP
                             </a>
                         </li>

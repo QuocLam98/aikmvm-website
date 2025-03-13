@@ -1,6 +1,7 @@
 @import './base.css';
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@iconify/tailwind4";
 
 .container-flur {
     width: 90%;
