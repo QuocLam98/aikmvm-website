@@ -1,0 +1,85 @@
+/* Hide scrollbar when sidebar is closed */
+::-webkit-scrollbar {
+    width: 0;
+  }
+.menu {
+    background: #fcfcfc;
+}
+.drawer-side {
+    position: unset;
+}
+@media (width >= 64rem) {
+    .lg\:drawer-open>.drawer-toggle {
+        display: none;
+    }
+}
+@media (width >= 64rem) {
+    .lg\:drawer-open>.drawer-toggle~.drawer-side {
+        display: block;
+        opacity: 1;
+        overscroll-behavior: auto;
+        pointer-events: auto;
+        position: sticky;
+        visibility: visible;
+        width: auto;
+    }
+}
+.bg-base-100 {
+    background-color: #FFFFFF !important;
+}
+.bg-base-300{
+    background-color: #F2F2F2 !important;
+}
+
+.border-base-300 {
+    border-color:  #F2F2F2 !important;
+}
+.min-heght {
+     min-height: calc(100vh - 5rem);
+}
+@media (width >= 64rem) {
+    .lg\:drawer-open>.drawer-side {
+        overflow-y: auto;
+    }
+}
+.drawer-side {
+    display: grid;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    height: 100dvh;
+    inset-inline-start: 0;
+    opacity: 0;
+    overflow: hidden;
+    overscroll-behavior: contain;
+    place-items: flex-start start;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: opacity allow-discrete .2s ease-out .1s, visibility allow-discrete .3s ease-out .1s;
+    visibility: hidden;
+    width: 100%;
+}
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Ẩn scrollbar trên Firefox */
+  html {
+    scrollbar-width: none;
+  }
+  
+  /* Ẩn scrollbar trên IE/Edge */
+  body {
+    -ms-overflow-style: none;
+    background-color: #FFFFFF !important;
+  }
+  .btn-hover:hover {
+    --btn-bg: 
+    color-mix(in oklab, var(--btn-color, #FAFAFA), #000 7%) !important;
+  }
+  .bg-base-200 {
+    background-color: #FAFAFA;
+    color: black;
+  }

@@ -1,24 +1,30 @@
 <script setup lang="ts">
 import '../assets/login.css'
+
+
 </script>
 
 <template>
-    <div class="w-100 login">
+    <div class="w-100 h-screen login">
         <h1>
             AIkmvn
         </h1>
-        <fieldset class="fieldset w-xs bg-base-200 border border-base-300 p-4 rounded-box">
-            <legend class="fieldset-legend">Đăng nhập</legend>
+        <div class="login-form">
+            <div class="login-title">Đăng nhập</div>
 
-            <label class="fieldset-label">Email</label>
-            <input type="email" class="input" placeholder="nhâp email" />
+            <div class="flex flex-col gap-2">
+                <label class="">Email</label>
+                <input type="email" class="input " placeholder="nhâp email" />
+            </div>
 
-            <label class="fieldset-label">Mật khẩu</label>
-            <input type="password" class="input" placeholder="nhập mật khẩu" />
+            <div class="flex flex-col gap-2">
+                <label class="">Mật khẩu</label>
+                <input type="password" class="input " placeholder="nhập mật khẩu" />
+            </div>
 
             <button class="btn btn-neutral mt-4">Login</button>
 
-            <a href="/register" class="fieldset-label">Bạn chưa có tài khoản ?</a>
-        </fieldset>
+            <a href="/register" class="">Bạn chưa có tài khoản ?</a>
+        </div>
     </div>
 </template>

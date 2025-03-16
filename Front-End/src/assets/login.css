@@ -1,14 +1,33 @@
 .login {
-    background-image: linear-gradient(var(--tw-gradient-stops));
+    background-color: #EEEEEE;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     padding-top: 64px;
 }
+.login-form {
+  background-color: white;
+  padding: 32px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: black;
+  width: 500px;
+}
+.login-title {
+  color: black;
+  text-align: center;
+
+}
 .login h1 {
     font-size: 64px;
     font-weight: 600;
+}
+.login-form input {
+  background-color: white !important;
+  width: 100% !important;
 }
 /* Hiệu ứng fade */
 .fade-enter-active, .fade-leave-active {

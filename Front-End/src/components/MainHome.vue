@@ -62,11 +62,11 @@ const toggleAccordion = (index: number) => {
             <WindowChat />
           </div>
           <div class="flex flex-col">
-            <strong class="text-strong">
+            <strong class="text-strong text-black">
               Chatbot tự động hỗ trợ tối ưu hóa công việc mà còn nâng cao chất lượng học tập và giao tiếp cho giáo viên,
               học sinh, sinh viên, cán bộ công chức, doanh nhân và mọi cá nhân muốn tận dụng AI vào cuộc sống.
             </strong>
-            <strong class="text-strong">
+            <strong class="text-strong text-black">
               Một trợ lý thông minh, đầy trách nhiệm sẽ cùng đồng hành với bạn trong suốt quá trình học tập, công tác,
               kiếm tiền hay sáng tạo nội dung.
             </strong>
@@ -186,7 +186,7 @@ const toggleAccordion = (index: number) => {
             <div class="price-item-header bg-blue-500 text-white">
               Nhận 2 credits
             </div>
-            <div class="price-item-title">
+            <div class="price-item-title text-black">
               Miễn phí
             </div>
             <div class="price-item-cotent">
@@ -205,7 +205,7 @@ const toggleAccordion = (index: number) => {
             <div class="price-item-header bg-blue-500 text-white">
               Nhận 5 credits
             </div>
-            <div class="price-item-title">
+            <div class="price-item-title text-black">
               50k VNĐ
             </div>
             <div class="price-item-cotent">
@@ -230,7 +230,7 @@ const toggleAccordion = (index: number) => {
             <div class="price-item-header bg-blue-500 text-white">
               Nhận 12 credits
             </div>
-            <div class="price-item-title">
+            <div class="price-item-title text-black">
               100k VNĐ
             </div>
             <div class="price-item-cotent">
@@ -255,7 +255,7 @@ const toggleAccordion = (index: number) => {
             <div class="price-item-header bg-blue-500 text-white">
               Nhận 18 credits
             </div>
-            <div class="price-item-title">
+            <div class="price-item-title text-black">
               150k VNĐ
             </div>
             <div class="price-item-cotent">
@@ -291,10 +291,10 @@ const toggleAccordion = (index: number) => {
             class="collapse collapse-plus border border-base-300 bg-base-200"
             :class="{ 'collapse-open': openIndex === index }">
             <div class="collapse-title font-semibold" @click="toggleAccordion(index)">
-              {{ item.title }}
+              <span>{{ item.title }}</span>
             </div>
             <div class="collapse-content text-sm">
-              <p>{{ item.content }}</p>
+              <span>{{ item.content }}</span>
             </div>
           </div>
         </div>

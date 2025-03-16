@@ -1,23 +1,17 @@
 <script setup lang="ts">
 import '../assets/header.css'
-import { useRouter } from 'vue-router'
 
-const router = useRouter();
-
-const goToLogin = () => {
-  router.push('/login');
-};
 </script>
 
 <template>
     <header id="main-header">
         <div class="container-flur">
             <div class="header-home">
-                <div class="">
+                <div class="header-logo">
                     <a class="btn btn-ghost text-xl">Aikmvn</a>
                 </div>
                 <div class="header-button">
-                    <ul class="hidden lg:flex lg-li">
+                    <ul class="lg-li hidden lg:flex">
                         <li href="/" class="text-xl">
                             <a href="/">
                                 Giới thiệu

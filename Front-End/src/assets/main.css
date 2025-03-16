@@ -15,3 +15,6 @@
     max-width: 1400px;
     margin: auto;
 }
+span, h1, li {
+    color: black;
+}
