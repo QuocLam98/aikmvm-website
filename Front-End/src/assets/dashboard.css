@@ -83,3 +83,16 @@
     background-color: #FAFAFA;
     color: black;
   }
+  details[open] summary {
+    background-color: #ECECF3;
+}
+.divider {
+    &:before, &:after {
+        content: "";
+        height: calc(0.25rem* 0.5);
+        width: 100%;
+        flex-grow: 1;
+        background-color: 
+color-mix(in oklab, #0C0E14 10%, transparent);
+    }
+}
