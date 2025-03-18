@@ -128,14 +128,98 @@ const routes = [
                         </ul>
                     </details>
                 </li>
-                <li><a>Item 3</a></li>
+                <li>
+                    <router-link to="/dashboard/payment">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M7.245 2h9.51c1.159 0 1.738 0 2.206.163a3.05 3.05 0 0 1 1.881 1.936C21 4.581 21 5.177 21 6.37v14.004c0 .858-.985 1.314-1.608.744a.946.946 0 0 0-1.284 0l-.483.442a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0a1.657 1.657 0 0 0-2.25 0a1.657 1.657 0 0 1-2.25 0l-.483-.442a.946.946 0 0 0-1.284 0c-.623.57-1.608.114-1.608-.744V6.37c0-1.193 0-1.79.158-2.27c.3-.913.995-1.629 1.881-1.937C5.507 2 6.086 2 7.245 2M7 6.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 10.25a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5zM7 13.75a.75.75 0 0 0 0 1.5h.5a.75.75 0 0 0 0-1.5zm3.5 0a.75.75 0 0 0 0 1.5H17a.75.75 0 0 0 0-1.5z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        thanh toán và sử dụng
+                    </router-link>
+                </li>
+                <div class="divider my-0"></div>
             </ul>
         </div>
     </div>
     <dialog id="my_modal_2" class="modal">
         <div class="modal-box max-w-7xl xl:max-w-[95vw] w-full [&>button.absolute]:z-10 bg-base-200">
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">Press ESC key or click outside to close</p>
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <section class="">
+                <div class="px-3">
+                    <div class="text-center my-5">
+                        <h2 class="section-title">Bảng giá dịch vụ</h2>
+                    </div>
+                    <div class="grid gap-3 lg:grid-cols-4 sm:grid-cols-2">
+                        <div class="card shadow bg-base-100 hover:shadow-lg transition-all duration-300">
+                            <div class="card-body text-center px-3">
+                                <h3 class="card-title block">350.000 vnđ</h3>
+                                <div class="my-3">
+                                    <p class="text-lg font-semibold text-secondary">10 credits</p>
+                                </div>
+                                <ul  class="text-left">
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Gửi tin hàng loạt FB, Zalo (tốc độ thường)</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Tự động trả lời bằng AI Chatbot</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Miễn phí tích hợp và training AI</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Hỏi mọi thứ trên ChatGPT</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Không giới hạn website, fanpage</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
+                                            <path fill="currentColor"
+                                                d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
+                                            </path>
+                                        </svg> Nhận diện SĐT từ website, FB</li>
+                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                             xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                            class="icon not" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4">
+                                            </path>
+                                        </svg> Ẩn "Powered by Tudongchat.com"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <form method="dialog" class="modal-backdrop">
             <button>close</button>
