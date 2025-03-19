@@ -139,6 +139,15 @@ const routes = [
                     </router-link>
                 </li>
                 <div class="divider my-0"></div>
+                <li>
+                    <router-link to="/login">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5l-5-5m5 5H9" />
+                        </svg>
+                        Đăng xuất
+                    </router-link>
+                </li>
             </ul>
         </div>
     </div>
@@ -157,57 +166,57 @@ const routes = [
                                 <div class="my-3">
                                     <p class="text-lg font-semibold text-secondary">10 credits</p>
                                 </div>
-                                <ul  class="text-left">
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                <ul class="text-left">
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Gửi tin hàng loạt FB, Zalo (tốc độ thường)</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Tự động trả lời bằng AI Chatbot</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Miễn phí tích hợp và training AI</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Hỏi mọi thứ trên ChatGPT</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Không giới hạn website, fanpage</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon check" width="1em" height="1em" viewBox="0 0 16 16">
                                             <path fill="currentColor"
                                                 d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
                                             </path>
                                         </svg> Nhận diện SĐT từ website, FB</li>
-                                    <li  class="flex space-x-3"><svg data-v-cf1ec82f=""
-                                             xmlns="http://www.w3.org/2000/svg"
+                                    <li class="flex space-x-3"><svg data-v-cf1ec82f=""
+                                            xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
                                             class="icon not" width="1em" height="1em" viewBox="0 0 24 24">
                                             <path fill="currentColor"
