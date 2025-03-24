@@ -1,10 +1,20 @@
 import { Elysia } from "elysia";
+import { bearer } from '@elysiajs/bearer'
+import app from "~/app";
 
-interface User {
-    name: string,
-}
 
 export default new Elysia()
-.resolve(() => {
+.use(bearer())
+.resolve({ }, ({bearer, error}) => {
+    if (!bearer)
+    {
+        return error(403, 'Unauthorized')
+    }
+
+    if (! app.service.swat.verify(bearer))
+        {
+            return error(403, 'Unauthorized')
+        }
+
     
 })

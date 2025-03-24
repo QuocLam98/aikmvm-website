@@ -9,13 +9,15 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@elysiajs/bearer": "^1.2.0",
     "@elysiajs/cors": "^1.2.0",
-    "@elysiajs/jwt": "^1.2.0",
     "@elysiajs/swagger": "^1.2.1",
     "argon2": "^0.41.1",
+    "dotenv": "^16.4.7",
     "elysia": "^1.2.12",
     "mongoose": "^8.10.1",
     "openai": "^4.83.0",
-    "pino": "^9.6.0"
+    "pino": "^9.6.0",
+    "swa-token": "^2.0.2"
   }
 }
