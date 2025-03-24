@@ -6,6 +6,7 @@ import DashBoardView from '@/views/DashBoardView.vue';
 import Chat from '@/components/Chat.vue';
 import SettingChat from '@/components/SettingChat.vue';
 import StorageImage from '@/components/StorageImage.vue';
+import Payment from '@/components/Payment.vue';
 
 const routes = [
   { path: '/', component: HomeView }, // Trang chính
@@ -27,14 +28,18 @@ const routes = [
         path: 'chatbox/store',
         component: StorageImage, // Hiển thị khi vào /chat/setting
       },
+      {
+        path: 'payment',
+        component: Payment, // Hiển thị khi vào /chat/setting
+      },
     ],
   },
 ];
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkActiveClass: 'bg-black', // Class khi link được kích hoạt
-  linkExactActiveClass: 'text-white',
+  linkActiveClass: 'linkActiveClass', // Class khi link được kích hoạt
+  linkExactActiveClass: 'linkExactActiveClass',
 })
 
 export default router

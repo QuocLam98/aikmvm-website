@@ -1,7 +1,7 @@
 <template>
     <div class="pb-10 pt-10 min-h-[calc(100vh-5rem)]">
         <div class="lg:px-10">
-            <div class="drawer lg:drawer-open chat-container relative overflow-y-hidden"><input type="checkbox"
+            <div class="drawer lg:drawer-open chat-container relative overflow-y-hidden shadow"><input type="checkbox"
                     class="drawer-toggle">
                 <div class="drawer-content">
                     <div
