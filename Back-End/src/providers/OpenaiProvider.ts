@@ -7,7 +7,7 @@ export default defineProvider([
 ], async (context) => {
   
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: context.service.config.OPENAI_KEY,
   });
 //  const completions = await openai.chat.completions.create({
 //         model: "gpt-4o-mini",
