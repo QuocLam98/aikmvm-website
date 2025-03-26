@@ -10,7 +10,10 @@ app.start(async () => {
     http.use(swagger())
   
   http.use(routers)
-  http.listen(3000)
+  http.listen({
+    port: 3000,
+    idleTimeout: 30, // Đặt timeout thành 30 giây
+  })
   app.on('stop', () => http.stop())
   // app.logger.info(`🦊 Elysia is running at ${http.server?.hostname}:${http.server?.port}`)
 })

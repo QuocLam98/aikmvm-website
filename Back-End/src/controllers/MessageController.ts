@@ -82,11 +82,11 @@ const controllerMessage = new Elysia()
       messages: [
         {
           "role": "developer",
-          "content": 'trả lời như 1 nhà giáo viên toán học ở viết nam'
+          "content": 'trả lời như một tiến sĩ soạn giáo án ở Việt Nam'
         },
         {
           "role": "user",
-          "content": "hãy ra 1 đề kiểm tra toán 15p với 15 câu"
+          "content": "Lập kế hoạch giảng dạy môn Lịch sử lớp 12 theo công văn 5512"
         },
       ],
     });
