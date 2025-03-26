@@ -28,7 +28,7 @@ const controllerBot = new Elysia()
     
     const exists = await BotModel.find({ name: body.name})
 
-    if (exists) return {
+    if (!exists) return {
         message: 'fail',
         status: 404
     }

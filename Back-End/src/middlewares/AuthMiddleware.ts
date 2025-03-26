@@ -15,6 +15,4 @@ export default new Elysia()
         {
             return error(403, 'Unauthorized')
         }
-
-    
 })
