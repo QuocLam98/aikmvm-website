@@ -42,8 +42,20 @@
                                     clip-rule="evenodd"></path>
                             </svg></button>
                     </div>
-                    <div class="bg-zinc-50 border-l border-base-300 w-full shadow-inner overflow-y-scroll relative py-2" style="height: calc(10px - 7.6rem + 80vh);">
-
+                    <div class="chat-scroll bg-zinc-50 border-l border-base-300 w-full shadow-inner py-2"
+                        style="height: calc(10px - 7.6rem + 80vh);">
+                        <div class="chat chat-start">
+                            <div class="chat-image avatar">
+                                <div class="w-10 rounded-full">
+                                    <img alt="Tailwind CSS chat bubble component"
+                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                </div>
+                            </div>
+                            <div class="chat-bubble">You were the Chosen One!</div>
+                        </div>
+                        <div class="chat chat-end">
+                            <div class="chat-bubble">I hate you!</div>
+                        </div>
                     </div>
                     <div class="bg-white py-2 px-3 border-l flex border-t border-base-300"><input
                             placeholder="Viết gì đó ..." type="text"
@@ -93,7 +105,23 @@
 svg {
     color: black;
 }
+
 .chat-container {
     max-height: 80vh;
+}
+
+.chat-scroll {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    scrollbar-width: none;
+    overflow: auto;
+    overflow-y: scroll;
+    padding: 0px 8px;
+}
+
+.chat-scroll::-webkit-scrollbar {
+    display: none;
 }
 </style>
