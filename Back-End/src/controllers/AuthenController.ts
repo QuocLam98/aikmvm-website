@@ -8,9 +8,7 @@ const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
 
 const controllerAuthen = new Elysia()
   .post('/register', async ({ body }) => {
-    console.log(body)
     const exists = await User.find({ email: body.email })
-
     if (!exists) return {
       message: 'fail',
       status: 404
@@ -21,6 +19,7 @@ const controllerAuthen = new Elysia()
       email: body.email,
       password: await argon2.hash(body.password),
       active: true,
+      role: 'user'
     })
 
     return {
@@ -43,7 +42,7 @@ const controllerAuthen = new Elysia()
   .post('/login', async ({ body }) => {
 
     const getUser = await User.findOne({ email: body.email })
-    console.log(getUser)
+
     if (!getUser) return {
       message: 'fail',
       status: 404
@@ -57,7 +56,7 @@ const controllerAuthen = new Elysia()
 
     const tokken = await app.service.swat.create(getUser.id, '', Date.now() + 28800)
 
-    return { message: 'success', status: 200, data: tokken }
+    return { message: 'success', status: 200, token: tokken, role: getUser.role }
   }, {
     body: t.Object({
       email: t.String({ format: 'email' }),

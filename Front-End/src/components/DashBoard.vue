@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted  } from 'vue';
 import '../assets/dashboard.css';
-import Chat from './Chat.vue';
-import SettingChat from './SettingChat.vue';
+import { useRouter } from 'vue-router';
 
-const isNavOpen = ref(false);
+const router = useRouter();
+const isNavOpen = ref(true);
 
 // Theo dõi sự thay đổi của checkbox để cập nhật trạng thái
 watch(isNavOpen, (newVal) => {
-    if (newVal == true) {
 
+});
+
+onMounted(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+        router.push('/login'); // Chuyển hướng về trang đăng nhập
     }
 });
-const routes = [
-    {
-        path: '/chat',
-        component: Chat,
-    },
-    {
-        path: '/chat/setting',
-        component: SettingChat,
-    },
-];
 
+const logout = () => {
+  localStorage.removeItem('token'); // Xóa token khỏi localStorage
+  router.push('/login'); // Chuyển hướng về trang đăng nhập
+};
 </script>
 
 <template>
@@ -140,13 +140,13 @@ const routes = [
                 </li>
                 <div class="divider my-0"></div>
                 <li>
-                    <router-link to="/login">
+                    <button @click="logout" to="/login">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                 stroke-width="2" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5l-5-5m5 5H9" />
                         </svg>
                         Đăng xuất
-                    </router-link>
+                    </button>
                 </li>
             </ul>
         </div>

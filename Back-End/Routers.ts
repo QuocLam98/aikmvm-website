@@ -6,9 +6,10 @@ import controllerMessage from "~/controllers/MessageController";
 import "./src/providers/MongodbProvider";
 
 const routers = new Elysia()
-    .use(controllerAuthen)
-    .use(controllerBot)
-    .use(controllerUseBot)
-    .use(controllerMessage)
+  .use(controllerAuthen)
+  .use(controllerAuthen)
+  .use(controllerBot)
+  .use(controllerUseBot)
+  .use(controllerMessage)
 
 export default routers
