@@ -8,7 +8,7 @@ import '../assets/header.css'
         <div class="container-flur">
             <div class="header-home">
                 <div class="header-logo">
-                    <a class="btn btn-ghost text-xl">Aikmvn</a>
+                    <a class="btn btn-ghost text-xl">AIknvm</a>
                 </div>
                 <div class="header-button">
                     <ul class="lg-li hidden lg:flex">

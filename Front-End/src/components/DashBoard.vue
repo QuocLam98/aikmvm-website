@@ -58,7 +58,7 @@ const logout = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-ghost normal-case text-xl text-black btn-hover">AIkmvn</a>
+                    <a class="btn btn-ghost normal-case text-xl text-black btn-hover">AIknvm</a>
                 </div>
                 <div class="navbar-end">
                     <button class="btn" onclick="my_modal_2.showModal()">Gia hạn</button>

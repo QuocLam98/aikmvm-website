@@ -55,7 +55,7 @@ const login = async () => {
 
 <template>
     <div class="w-100 h-screen login">
-        <h1>AIkmvn</h1>
+        <h1>AIknvm</h1>
         <div class="login-form">
             <div class="login-title">Đăng nhập</div>
 

@@ -14,24 +14,24 @@ interface AccordionItem {
 
 const items = ref<AccordionItem[]>([
   {
-    title: "Tại sao nên chọn Chatbot AIkmvn ?",
-    content: "Aikmvn là AI chatbot đầu tiên tại Việt Nam tập trung sử dụng sức mạnh trí tuệ nhân tạo để hỗ trợ làm việc và học tập, giúp giảm thời gian và hiệu quả"
+    title: "Tại sao nên chọn Chatbot AIknvm ?",
+    content: "AIknvm là AI chatbot đầu tiên tại Việt Nam tập trung sử dụng sức mạnh trí tuệ nhân tạo để hỗ trợ làm việc và học tập, giúp giảm thời gian và hiệu quả"
   },
   {
-    title: "Aikmvn có cung cấp dịch vụ miễn phí không ?",
-    content: "Có. Aikmvn cung cấp dịch vụ dùng thử miễn phí với 2 credits để bạn trải nghiệm AI Chatbot trước khi quyết định sử dụng gói dịch vụ trả phí. Lưu ý là mỗi tài khoản chỉ có thể đăng ký sử dụng miễn phí 1 lần duy nhất."
+    title: "AIknvm có cung cấp dịch vụ miễn phí không ?",
+    content: "Có. AIknvm cung cấp dịch vụ dùng thử miễn phí với 2 credits để bạn trải nghiệm AI Chatbot trước khi quyết định sử dụng gói dịch vụ trả phí. Lưu ý là mỗi tài khoản chỉ có thể đăng ký sử dụng miễn phí 1 lần duy nhất."
   },
   {
     title: "Tôi dùng thử miễn phí thì có bị giới hạn tính năng không?",
-    content: "Không, bạn có thể sử dụng AI Chatbot miễn phí với 2 credit với đầy đủ tính năng tuy nhiên tốc độ xử lý sẽ ở mức chậm. Trong thời gian này, bạn có thể trải nghiệm đầy đủ các tính năng của AI Chatbot Aikmvn để xem liệu có phù hợp với nhu cầu của bạn hay không. Nếu bạn muốn tiếp tục sử dụng sau khi kết thúc thời gian dùng thử, bạn có thể chọn các gói dịch vụ phù hợp với bạn để tiếp tục tận hưởng các ưu đãi và tính năng của AI Chatbot Aikmvn."
+    content: "Không, bạn có thể sử dụng AI Chatbot miễn phí với 2 credit với đầy đủ tính năng tuy nhiên tốc độ xử lý sẽ ở mức chậm. Trong thời gian này, bạn có thể trải nghiệm đầy đủ các tính năng của AI Chatbot AIknvm để xem liệu có phù hợp với nhu cầu của bạn hay không. Nếu bạn muốn tiếp tục sử dụng sau khi kết thúc thời gian dùng thử, bạn có thể chọn các gói dịch vụ phù hợp với bạn để tiếp tục tận hưởng các ưu đãi và tính năng của AI Chatbot AIknvm."
   },
   {
     title: 'Tôi dùng thử miễn phí có được hỗ trợ không?',
-    content: 'Có. Đội ngũ của Aikmvn luôn sẵn sàng để được hỗ trợ bạn bất cứ vấn đề nào liên quan đến sản phảm và dịch vụ của chúng tôi'
+    content: 'Có. Đội ngũ của AIknvm luôn sẵn sàng để được hỗ trợ bạn bất cứ vấn đề nào liên quan đến sản phảm và dịch vụ của chúng tôi'
   },
   {
     title: 'Cách tính credit như thế nào?',
-    content: 'AI Chatbot Aikmvn được xây dựng trên nền tảng trí tuệ nhân tạo ChatGPT. Do đó, chúng tôi quy định 1 credit tương đương với 1 USD. Khi bạn sử dụng AI Chatbot Aikmvn để trả lời các câu hỏi của khách hàng, theo cách tính phí của ChatGPT, cứ 750 từ = 0.002 đô. Vậy với 50.000đ bạn có thể trả lời cho khách hàng đến 750.000 từ. Bình quân nếu mỗi câu trả lời là 50 từ thì mỗi ngày chatbot AI Aikmvn có thể giúp bạn trả lời khoảng 15.000 câu hỏi.'
+    content: 'AI Chatbot AIknvm được xây dựng trên nền tảng trí tuệ nhân tạo ChatGPT. Do đó, chúng tôi quy định 1 credit tương đương với 1 USD. Khi bạn sử dụng AI Chatbot AIknvm để trả lời các câu hỏi của khách hàng, theo cách tính phí của ChatGPT, cứ 750 từ = 0.002 đô. Vậy với 50.000đ bạn có thể trả lời cho khách hàng đến 750.000 từ. Bình quân nếu mỗi câu trả lời là 50 từ thì mỗi ngày chatbot AI AIknvm có thể giúp bạn trả lời khoảng 15.000 câu hỏi.'
   },
   {
     title: 'Cách thức thanh toán khi nâng cấp lên gói trả phí ?',
@@ -43,7 +43,7 @@ const items = ref<AccordionItem[]>([
   },
   {
     title: 'Điều gì sẽ xảy ra khi dùng hết credit ?',
-    content: 'Khi sử dụng hết credit, để có thể tiếp tục sử dụng dịch vụ AI Chatbot Aikmvn, bạn có thẻ thanh toán mua thêm credit. Nếu không, AI Chatbot Aikmvn sẽ không thể thực hiện các chức năng như trước và ngừng hỗ trợ.'
+    content: 'Khi sử dụng hết credit, để có thể tiếp tục sử dụng dịch vụ AI Chatbot AIknvm, bạn có thẻ thanh toán mua thêm credit. Nếu không, AI Chatbot AIknvm sẽ không thể thực hiện các chức năng như trước và ngừng hỗ trợ.'
   }
 ]);
 
@@ -121,7 +121,7 @@ const toggleAccordion = (index: number) => {
     <div class="container-flur">
       <div class="feature-content">
         <h1>
-          Tính năng của ChatBot Aikmvn
+          Tính năng của ChatBot AIknvm
         </h1>
         <div class="feature-list-item">
           <div class="feature-item">
