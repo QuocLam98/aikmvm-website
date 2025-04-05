@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, onMounted  } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import '../assets/dashboard.css';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const isNavOpen = ref(true);
+const checkRole = ref(true)
 
 // Theo dõi sự thay đổi của checkbox để cập nhật trạng thái
 watch(isNavOpen, (newVal) => {
@@ -13,6 +14,13 @@ watch(isNavOpen, (newVal) => {
 
 onMounted(() => {
     const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (role === 'admin') {
+        checkRole.value = true; // Cập nhật giá trị của checkRole thông qua .value
+    } else {
+        checkRole.value = false;
+    }
 
     if (!token) {
         router.push('/login'); // Chuyển hướng về trang đăng nhập
@@ -20,8 +28,8 @@ onMounted(() => {
 });
 
 const logout = () => {
-  localStorage.removeItem('token'); // Xóa token khỏi localStorage
-  router.push('/login'); // Chuyển hướng về trang đăng nhập
+    localStorage.removeItem('token'); // Xóa token khỏi localStorage
+    router.push('/login'); // Chuyển hướng về trang đăng nhập
 };
 </script>
 
@@ -136,6 +144,17 @@ const logout = () => {
                                 clip-rule="evenodd" />
                         </svg>
                         thanh toán và sử dụng
+                    </router-link>
+                </li>
+                <div class="divider my-0" v-if="checkRole"></div>
+                <li v-if="checkRole">
+                    <router-link to="/dashboard/list-user">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <circle cx="12" cy="6" r="4" fill="currentColor" />
+                            <path fill="currentColor"
+                                d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5" />
+                        </svg>
+                        Danh sách tài khoản
                     </router-link>
                 </li>
                 <div class="divider my-0"></div>
