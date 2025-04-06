@@ -33,11 +33,6 @@ const controllerAuthen = new Elysia()
       password: t.String({ maxLength: 16, minLength: 8 })
     })
   })
-  .get('/list-user/', async () => {
-    const userFind = await User.find()
-
-    return userFind
-  })
   .use(AuthMiddleware)
   .post('/login', async ({ body }) => {
 
@@ -54,9 +49,9 @@ const controllerAuthen = new Elysia()
       return { message: 'fail', status: 404 }
     }
 
-    const tokken = await app.service.swat.create(getUser.id, '', Date.now() + 28800)
+    const token = await app.service.swat.create(getUser.id, '', Date.now() + 28800)
 
-    return { message: 'success', status: 200, token: tokken, role: getUser.role }
+    return { message: 'success', status: 200, token: token, role: getUser.role }
   }, {
     body: t.Object({
       email: t.String({ format: 'email' }),
@@ -71,23 +66,27 @@ const controllerAuthen = new Elysia()
   }, {
     params: t.Object({ id: idMongodb })
   })
-  .put('/update/:id', async ({ params, body }) => {
-    const user = User.findById(params.id)
-
-    if (!user) return {
-      message: 'fail',
-      status: 404
-    }
+  .put('/update-user/:id', async ({ params, body, set, error }) => {
+    const user = await User.findById(params.id)
+    set.status = 404
+    if (!user) return error(404, 'fail')
 
     await user.updateOne({
       name: body.name,
       email: body.email,
+      credit: body.credit,
+      role: body.role
     })
+
+    set.status = 201
+    return user.toObject()
   }, {
     params: t.Object({ id: idMongodb }),
     body: t.Object({
       name: t.String({ maxLength: 50 }),
       email: t.String({ format: 'email' }),
+      credit: t.Number(),
+      role: t.String({ maxLength: 50 }),
     })
   })
   .put('/updatePassword/:id', async ({ params, body }) => {
@@ -114,6 +113,29 @@ const controllerAuthen = new Elysia()
     })
   }, {
     params: t.Object({ id: idMongodb }),
+  })
+  .get('/list-user', async ({ query }) => {
+    const page = query.page ?? 1
+    const limit = query.limit ?? 10
+  
+    const skip = (page - 1) * limit
+  
+    const [users, total] = await Promise.all([
+      User.find().skip(skip).limit(limit),
+      User.countDocuments()
+    ])
+  
+    return {
+      message: 'success',
+      status: 200,
+      data: users,
+      total: total
+    }
+  }, {
+    query: t.Object({
+      page: t.Optional(t.Number({ minimum: 1 })),
+      limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
+    })
   })
 
 export default controllerAuthen
