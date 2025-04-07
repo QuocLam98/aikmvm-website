@@ -8,6 +8,7 @@ import SettingChat from '@/components/SettingChat.vue';
 import StorageImage from '@/components/StorageImage.vue';
 import Payment from '@/components/Payment.vue';
 import ListUser from '@/components/ListUser.vue';
+import ListBot from '@/components/ListBot.vue';
 
 const routes = [
   { path: '/', component: HomeView }, // Trang chính
@@ -36,6 +37,10 @@ const routes = [
       {
         path: 'list-user',
         component: ListUser, // Hiển thị khi vào /chat/setting
+      },
+      {
+        path: 'list-bot',
+        component: ListBot, // Hiển thị khi vào /chat/setting
       },
     ],
   },

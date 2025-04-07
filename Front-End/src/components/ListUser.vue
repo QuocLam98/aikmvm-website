@@ -70,6 +70,19 @@ const fetchUsers = async () => {
   }
 }
 
+const closeModal = () => {
+  // Reset dữ liệu
+  userDetail.name = ''
+  userDetail.email = ''
+  userDetail.credit = ''
+  userDetail.role = ''
+  userEdit.value = null
+
+  // Đóng modal
+  const modal: any = document.getElementById('modal_user_detail')
+  if (modal?.close) modal.close()
+}
+
 const getUser = (data: any) => {
   userEdit.value = data
 
@@ -96,13 +109,13 @@ const getUserDetail = async (id: string) => {
 const updateUserDetail = async () => {
 
   try {
-    const respone =  await axios.put(`http://localhost:3000/update-user/${userEdit.value?._id}`, {
+    const respone = await axios.put(`http://localhost:3000/update-user/${userEdit.value?._id}`, {
       ...userDetail, credit: Number(userDetail.credit)
     })
     const findUser = users.value.findIndex(x => x._id === respone.data._id)
 
     users.value[findUser] = respone.data
-    
+
     alert('Cập nhật thành công!')
     // Đóng modal
     const modal: any = document.getElementById('modal_user_detail')
@@ -120,9 +133,6 @@ const changePerPage = () => {
   currentPage.value = 1
 }
 </script>
-
-
-
 
 <template>
   <div class="lg:px-10 pb-10 pt-10 min-h-[calc(100vh-5rem)]">
@@ -197,7 +207,7 @@ const changePerPage = () => {
 
   <dialog id="modal_user_detail" class="modal" v-if="userDetail">
     <div class="modal-box max-w-7xl xl:max-w-[95vw] w-full bg-base-200">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closeModal">✕</button>
       <section>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
@@ -218,7 +228,7 @@ const changePerPage = () => {
           </div>
         </div>
         <div class="flex justify-end gap-2 mt-4">
-          <button class="btn">Hủy</button>
+          <button class="btn" @click="closeModal">Hủy</button>
           <button class="btn btn-primary" @click="updateUserDetail">Lưu</button>
         </div>
       </section>

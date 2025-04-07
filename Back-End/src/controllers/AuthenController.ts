@@ -89,10 +89,10 @@ const controllerAuthen = new Elysia()
       role: t.String({ maxLength: 50 }),
     })
   })
-  .put('/updatePassword/:id', async ({ params, body }) => {
-    const user = User.findById(params.id)
+  .put('/updatePassword/:id', async ({ params, body, error }) => {
+    const user = await User.findById(params.id)
 
-    if (!user) return
+    if (!user) return error(404, 'fail') 
 
     await user.updateOne({
       password: await argon2.hash(body.passsword),

@@ -1,61 +1,89 @@
-import Elysia, {t} from 'elysia';
+import Elysia, { t } from 'elysia';
 import BotModel from '../models/BotModel';
 import UserModel from '../models/UserModel';
 
-const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$'})
+const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
 
 const controllerBot = new Elysia()
-.get('/list', () => {
-   const listBot = BotModel.find()
+  .get('/list-bot', async ({ query }) => {
+    const page = query.page ?? 1
+    const limit = query.limit ?? 10
 
-   return listBot
-})
-.get('/listByUserId/:id', async ({ params }) => {
+    const skip = (page - 1) * limit
+
+    const [bots, total] = await Promise.all([
+      BotModel.find().skip(skip).limit(limit),
+      BotModel.countDocuments()
+    ])
+
+    return {
+      message: 'success',
+      status: 200,
+      data: bots,
+      total: total
+    }
+  }, {
+    query: t.Object({
+      page: t.Optional(t.Number({ minimum: 1 })),
+      limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
+    })
+  })
+  .get('/listByUserId/:id', async ({ params }) => {
 
     const user = await UserModel.findById(params.id)
 
-    if (!user) return { message: 'fail',
-        status: 404
-    } 
+    if (!user) return {
+      message: 'fail',
+      status: 404
+    }
 
     const listBot = BotModel.find(user.id)
 
     return listBot
-},{
-    params: t.Object({ id: idMongodb})
-})
-.post('/registerBot', async ({ body }) => {
-    
-    const exists = await BotModel.find({ name: body.name})
+  }, {
+    params: t.Object({ id: idMongodb })
+  })
+  .post('/registerBot', async ({ body, error }) => {
 
-    if (!exists) return {
-        message: 'fail',
-        status: 404
-    }
+    const exists = await BotModel.find({ name: body.name })
 
-     await BotModel.create({
-        name: body.name,
-        description: body.description,
-        templateMessage: body.templateMessage,
-        active: true,
+    if (!exists) return error(404, 'fail')
+
+    const createBot = await BotModel.create({
+      name: body.name,
+      templateMessage: body.templateMessage,
+      active: true,
     })
 
-    return {
-        message: 'created',
-        status: 201
-    }
-}, {
+    return createBot.toObject()
+  }, {
     body: t.Object({
-        name: t.String({ maxLength: 50}),
-        description: t.String({ maxLength: 250}),
-        templateMessage: t.String({ maxLength: 500 })
+      name: t.String({ maxLength: 50 }),
+      templateMessage: t.String({ maxLength: 500 })
     })
-})
-.put('/update', () => {
-    
-})
-.delete('/delete', () => {
-    
-})
+  })
+  .put('/update-bot/:id', async ({ params, body, set, error }) => {
+    const bot = await BotModel.findById(params.id)
+    set.status = 404
+    if (!bot) return error(404, 'fail')
+
+  await bot.updateOne({
+      name: body.name,
+      templateMessage: body.templateMessage,
+    })
+    const botUpdate = await BotModel.findById(params.id)
+
+    set.status = 200
+    return botUpdate?.toObject()
+  }, {
+    params: t.Object({ id: idMongodb }),
+    body: t.Object({
+      name: t.String({ maxLength: 50 }),
+      templateMessage: t.String({ maxLength: 500 }),
+    })
+  })
+  .delete('/delete', () => {
+
+  })
 
 export default controllerBot
