@@ -175,33 +175,40 @@ const changePerPage = () => {
       </div>
 
       <!-- Pagination controls -->
-      <div class="flex justify-between items-center mt-4">
-        <div class="join">
-          <button class="join-item btn" :disabled="currentPage === 1" @click="currentPage--">Prev</button>
+      <div class="flex justify-between items-center mt-4" v-if="totalItems > 0">
+          <div class="join">
+            <button class="join-item btn" :disabled="currentPage === 1" @click="currentPage--">
+              Prev
+            </button>
 
-          <button v-if="currentPage > 3" class="join-item btn" @click="currentPage = 1">1</button>
-          <span v-if="currentPage > 3" class="join-item btn">...</span>
+            <button v-if="currentPage > 3" class="join-item btn" @click="currentPage = 1">1</button>
+            <span v-if="currentPage > 3" class="join-item btn">...</span>
 
-          <button v-for="page in visiblePages" :key="page" class="join-item btn"
-            :class="{ 'btn-active': page === currentPage }" @click="currentPage = page">
-            {{ page }}
-          </button>
+            <button v-for="page in visiblePages" :key="page" class="join-item btn"
+              :class="{ 'btn-active': page === currentPage }" @click="currentPage = page">
+              {{ page }}
+            </button>
 
-          <span v-if="currentPage < totalPages - 2" class="join-item btn">...</span>
-          <button v-if="currentPage < totalPages - 2" class="join-item btn" @click="currentPage = totalPages">
-            {{ totalPages }}
-          </button>
+            <span v-if="currentPage < totalPages - 2" class="join-item btn">...</span>
+            <button v-if="currentPage < totalPages - 2" class="join-item btn" @click="currentPage = totalPages">
+              {{ totalPages }}
+            </button>
 
-          <button class="join-item btn" :disabled="currentPage === totalPages" @click="currentPage++">
-            Next
-          </button>
+            <button class="join-item btn" :disabled="currentPage === totalPages" @click="currentPage++">
+              Next
+            </button>
+          </div>
+
+          <!-- Chọn số bản ghi / trang -->
+          <select v-model="perPage" @change="changePerPage" class="select select-bordered">
+            <option v-for="option in perPageOptions" :key="option" :value="option">{{ option }}</option>
+          </select>
         </div>
 
-        <!-- Chọn số bản ghi / trang -->
-        <select v-model="perPage" @change="changePerPage" class="select select-bordered">
-          <option v-for="option in perPageOptions" :key="option" :value="option">{{ option }}</option>
-        </select>
-      </div>
+        <!-- Nếu không có dữ liệu -->
+        <div v-else class="text-center mt-4 text-gray-500">
+          Không có dữ liệu để hiển thị.
+        </div>
     </div>
   </div>
 

@@ -13,6 +13,7 @@
     "@elysiajs/cors": "^1.2.0",
     "@elysiajs/swagger": "^1.2.1",
     "argon2": "^0.41.1",
+    "decimal.js": "^10.5.0",
     "dotenv": "^16.4.7",
     "elysia": "^1.2.12",
     "mongoose": "^8.10.1",

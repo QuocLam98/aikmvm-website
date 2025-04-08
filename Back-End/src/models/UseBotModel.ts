@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, type ObjectId } from "mongoose";
 
 interface IUseBot {
-    userId: string
-    botId: string
+    userId: ObjectId
+    botId: ObjectId
     templateMessage: string
     createdAt: Date
     updateAt: Date
@@ -10,8 +10,8 @@ interface IUseBot {
 }
 
 const UseBotSchema = new Schema<IUseBot>({
-    userId: { type: String, required: true},
-    botId: { type: String, required: true},
+    botId: { type: Schema.Types.ObjectId, ref: 'BotManange', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     templateMessage: { type: String},
     active: { type: Boolean, required: true}
 }, {

@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, type ObjectId } from "mongoose";
 
 interface IMessage {
-    botId: string,
-    userId: string,
+    bot: ObjectId,
+    user: ObjectId,
     contentUser: string,
     contentBot: string,
     tookenRequest: string,
@@ -12,12 +12,13 @@ interface IMessage {
 }
 
 const MessageSchema = new Schema<IMessage>({
-    botId: { type: String, required: true},
-    userId: { type: String, required: true},
+    bot: { type: Schema.Types.ObjectId, ref: 'BotManange', required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     contentUser: { type: String},
     contentBot: { type: String },
     tookenRequest: { type: String },
     tookendResponse: { type: String },
+    
 }, {
     timestamps: true
 })
