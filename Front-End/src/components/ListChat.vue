@@ -159,7 +159,11 @@ const changePerPage = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Tên</th>
+                <th>Người dùng</th>
+                <th>Bot</th>
+                <th>Tin nhắn gửi lên</th>
+                <th>Tin nhắn trả về</th>
+                <th>Số tiền</th>
                 <th>Ngày tạo</th>
                 <th></th>
               </tr>
