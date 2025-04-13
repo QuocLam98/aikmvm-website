@@ -7,6 +7,7 @@ interface IMessage {
     contentBot: string,
     tookenRequest: string,
     tookendResponse: string,
+    creditCost: number,
     updatedAt: Date,
     createdAt: Date,
 }
@@ -18,7 +19,7 @@ const MessageSchema = new Schema<IMessage>({
     contentBot: { type: String },
     tookenRequest: { type: String },
     tookendResponse: { type: String },
-    
+    creditCost: { type: Number, default: 0 },
 }, {
     timestamps: true
 })

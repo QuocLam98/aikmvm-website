@@ -3,8 +3,8 @@ import { ref, watch, onMounted } from 'vue';
 import '../assets/dashboard.css';
 import { useRouter } from 'vue-router';
 
-const router = useRouter();
-const isNavOpen = ref(true);
+const router = useRouter()
+const isNavOpen = ref(true)
 const checkRole = ref(true)
 
 // Theo dõi sự thay đổi của checkbox để cập nhật trạng thái
@@ -13,13 +13,13 @@ watch(isNavOpen, (newVal) => {
 });
 
 onMounted(() => {
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
+    const token = localStorage.getItem('token')
+    const role = localStorage.getItem('role')
 
     if (role === 'admin') {
-        checkRole.value = true; // Cập nhật giá trị của checkRole thông qua .value
+        checkRole.value = true;// Cập nhật giá trị của checkRole thông qua .value
     } else {
-        checkRole.value = false;
+        checkRole.value = false
     }
 
     if (!token) {
@@ -28,8 +28,8 @@ onMounted(() => {
 });
 
 const logout = () => {
-    localStorage.removeItem('token'); // Xóa token khỏi localStorage
-    router.push('/login'); // Chuyển hướng về trang đăng nhập
+    localStorage.clear() // Xóa token khỏi localStorage
+    router.push('/login') // Chuyển hướng về trang đăng nhập
 };
 </script>
 

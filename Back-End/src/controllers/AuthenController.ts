@@ -51,7 +51,7 @@ const controllerAuthen = new Elysia()
 
     const token = await app.service.swat.create(getUser.id, '', Date.now() + 28800)
 
-    return { message: 'success', status: 200, token: token, role: getUser.role }
+    return { message: 'success', status: 200, token: token, role: getUser.role, email: body.email }
   }, {
     body: t.Object({
       email: t.String({ format: 'email' }),
@@ -65,6 +65,22 @@ const controllerAuthen = new Elysia()
     return userFind
   }, {
     params: t.Object({ id: idMongodb })
+  })
+  .post('/get-user', async ({ body }) => {
+    const getUser = await User.findOne({ email: body.email })
+
+    if (!getUser) return {
+      message: 'fail',
+      status: 404
+    }
+    return {
+      credit: getUser?.credit,
+      creditUsed : getUser?.creditUsed
+    }
+  }, {
+    body: t.Object({
+      email: t.String({ format: 'email' }),
+    })
   })
   .put('/update-user/:id', async ({ params, body, set, error }) => {
     const user = await User.findById(params.id)

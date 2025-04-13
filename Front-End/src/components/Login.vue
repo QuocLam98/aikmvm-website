@@ -43,9 +43,9 @@ const login = async () => {
             email: email.value,
             password: password.value,
         });
-        console.log(response)
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('role', response.data.role);
+        localStorage.setItem('email', response.data.email);
         router.push('/dashboard');
     } catch (error: any) {
         errorMessage.value = error.response?.data?.message || 'Đăng nhập thất bại';

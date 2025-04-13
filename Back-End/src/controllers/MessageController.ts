@@ -3,6 +3,7 @@ import UserModel from '../models/UserModel'
 import BotModel from '../models/BotModel'
 import MessageModel from '../models/MessageModel'
 import app from '~/app'
+import Decimal from 'decimal.js'
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
 
@@ -39,6 +40,12 @@ const controllerMessage = new Elysia()
       message: 'fail',
       status: 404
     }
+
+    if (user.creditUsed >= user.credit) return {
+      message: 'fail',
+      status: 404
+    }
+
     const bot = await BotModel.findById(body.bot)
 
     if (!bot) return {
@@ -56,12 +63,30 @@ const controllerMessage = new Elysia()
         },
         {
           "role": "user",
-          "content": "write a haiku about ai"
+          "content": body.message
         },
       ],
     });
 
-    await MessageModel.create({
+    let priceTokenRequest = new Decimal(0)
+    let priceTokenResponse = new Decimal(0)
+    const priceTokenInput = new Decimal(0.0000006)
+    const priceTokenOutput = new Decimal(0.0000024 )
+
+    if (completions.usage !== undefined && completions.usage !== null) {
+      priceTokenRequest = new Decimal(completions.usage.prompt_tokens);
+      priceTokenResponse = new Decimal(completions.usage.completion_tokens);
+  }
+    
+
+    const totalCostInput = priceTokenRequest.mul(priceTokenInput)
+    const totalCostOutput = priceTokenRequest.mul(priceTokenInput)
+
+
+    const totalCostRealInput = totalCostInput.mul(25)
+    const totalCostRealOutput = totalCostOutput.mul(25)
+
+    const messageCreated = await MessageModel.create({
       user: body.user,
       bot: body.bot,
       templateMessage: body.templateMessage,
@@ -69,14 +94,21 @@ const controllerMessage = new Elysia()
       contentBot: completions.choices[0].message.content,
       tookenRequest: completions.usage?.prompt_tokens,
       tookendResponse: completions.usage?.completion_tokens,
+      creditCost: totalCostRealInput.add(totalCostRealOutput),
       active: true,
+    })
+
+    const creditUsed = new Decimal(user.creditUsed)
+    const creditUsedUpdate = creditUsed.add(messageCreated.creditCost)
+
+    await user.updateOne({
+      creditUsed: creditUsedUpdate,
     })
 
     return {
       message: 'success',
       status: 200,
-      tokken: completions.usage,
-      data: completions.choices,
+      data: messageCreated,
     }
   }, {
     body: t.Object({

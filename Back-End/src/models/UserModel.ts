@@ -12,6 +12,7 @@ interface IUser {
     active: boolean,
     bank: string,
     role: string,
+    creditUsed: number
 }
 
 const UserSchema = new Schema<IUser>({
@@ -22,7 +23,8 @@ const UserSchema = new Schema<IUser>({
     bankAccount: { type: String },
     bank: {type: String},
     active: { type: Boolean, required: true},
-    role: {type: String, required: true}
+    role: {type: String, required: true},
+    creditUsed: { type: Number, default: 0 }
 }, {
     timestamps: true
 })
