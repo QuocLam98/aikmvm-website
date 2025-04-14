@@ -80,7 +80,7 @@ const controllerMessage = new Elysia()
     
 
     const totalCostInput = priceTokenRequest.mul(priceTokenInput)
-    const totalCostOutput = priceTokenRequest.mul(priceTokenInput)
+    const totalCostOutput = priceTokenRequest.mul(priceTokenOutput)
 
 
     const totalCostRealInput = totalCostInput.mul(25)

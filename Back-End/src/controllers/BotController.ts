@@ -28,24 +28,15 @@ const controllerBot = new Elysia()
       limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
     })
   })
-  .get('/listByUserId/:id', async ({ params }) => {
+  .get('/list-bot-admin', async () => {
 
-    const user = await UserModel.findById(params.id)
-
-    if (!user) return {
-      message: 'fail',
-      status: 404
-    }
-
-    const listBot = BotModel.find(user.id)
+    const listBot = BotModel.find()
 
     return listBot
-  }, {
-    params: t.Object({ id: idMongodb })
   })
   .post('/registerBot', async ({ body, error }) => {
 
-    const exists = await BotModel.find({ name: body.name })
+    const exists = await BotModel.findOne({ name: body.name })
 
     if (!exists) return error(404, 'fail')
 
@@ -67,7 +58,7 @@ const controllerBot = new Elysia()
     set.status = 404
     if (!bot) return error(404, 'fail')
 
-  await bot.updateOne({
+    await bot.updateOne({
       name: body.name,
       templateMessage: body.templateMessage,
     })
