@@ -37,8 +37,8 @@ const controllerBot = new Elysia()
   .post('/registerBot', async ({ body, error }) => {
 
     const exists = await BotModel.findOne({ name: body.name })
-
-    if (!exists) return error(404, 'fail')
+    console.log(exists)
+    if (exists) return error(404, 'fail')
 
     const createBot = await BotModel.create({
       name: body.name,

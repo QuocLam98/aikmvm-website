@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import axios from 'axios';
+import { useToast } from 'vue-toast-notification';
 
 interface Bot {
 	_id: string;
@@ -9,20 +10,23 @@ interface Bot {
 }
 
 interface UseBot {
+	_id: string; // <-- ID của bản ghi use-bot
 	bot: {
 		_id: string;
 		name: string;
-		templateMessage?: string; // Trong trường hợp populate bot có luôn template
+		templateMessage?: string;
 	};
 	templateMessage: string;
+	user: string;
 }
-
+const toast = useToast();
 const maxLength = 15500;
 const text = ref('');
 const charCount = computed(() => `${text.value.length}/${maxLength}`);
 
 const bots = ref<Bot[]>([]);
 const selectedBotId = ref<string>(''); // Khởi tạo rỗng
+const useBotDataRaw = ref<UseBot[]>([]);
 
 onMounted(async () => {
 	const role = localStorage.getItem('role');
@@ -37,6 +41,7 @@ onMounted(async () => {
 		try {
 			const response = await axios.post('http://localhost:3000/list-use-bot', { email });
 			useBotData = Array.isArray(response.data.data) ? response.data.data : [];
+			useBotDataRaw.value = useBotData;
 		} catch (error) {
 			console.warn('Lỗi khi gọi list-use-bot');
 		}
@@ -67,13 +72,12 @@ onMounted(async () => {
 
 		// Cập nhật danh sách bots
 		bots.value = [...usedBots, ...newBots];
-		console.log('Danh sách bots:', bots.value);
 	} else {
 		// Người dùng bình thường, lấy danh sách use-bot
 		try {
 			const response = await axios.post('http://localhost:3000/list-use-bot', { email });
 			const useBotData: UseBot[] = Array.isArray(response.data) ? response.data : [];
-
+			useBotDataRaw.value = useBotData;
 			bots.value = useBotData.map(u => ({
 				_id: u.bot._id,
 				name: u.bot.name,
@@ -88,16 +92,43 @@ onMounted(async () => {
 const addTemplate = async () => {
 	const email = localStorage.getItem('email');
 	if (!selectedBotId.value) return alert('Vui lòng chọn một Bot!');
+
+	// Tìm bản ghi useBot theo bot._id
+	const existingUseBot = useBotDataRaw.value.find(u => u.bot._id === selectedBotId.value);
 	try {
-		await axios.post('http://localhost:3000/registerUseBot', {
-			botId: selectedBotId.value,
-			templateMessage: text.value,
-			email
-		});
-		alert('Lưu thành công và đang training AI!');
+		if (existingUseBot && existingUseBot._id) {
+			// Nếu đã tồn tại bản ghi => cập nhật
+			const respone = await axios.put('http://localhost:3000/update-use-bot/' + existingUseBot._id, {
+				templateMessage: text.value,
+			});
+			const findData = useBotDataRaw.value.findIndex(x => x._id === respone.data._id)
+
+			useBotDataRaw.value[findData] = respone.data
+			toast.success('Cập nhật thành công!', {
+				position: 'top-right',
+				duration: 3000
+			});
+		} else {
+			// Nếu chưa có => thêm mới
+			const respone = await axios.post('http://localhost:3000/registerUseBot', {
+				botId: selectedBotId.value,
+				templateMessage: text.value,
+				email
+			});
+
+			const findData = useBotDataRaw.value.findIndex(x => x.bot._id === respone.data._id)
+			// Cập nhật lại danh sách bots sau khi thêm mới
+			useBotDataRaw.value[findData] = respone.data
+			toast.success('Thêm mới thành công và đang training AI!', {
+				position: 'top-right',
+				duration: 3000
+			});
+		}
 	} catch (error) {
-		console.error('Lỗi khi lưu template:', error);
-		alert('Lỗi khi lưu dữ liệu!');
+		toast.error('Lỗi khi lưu dữ liệu!', {
+			position: 'top-right',
+			duration: 3000
+		});
 	}
 };
 
@@ -111,9 +142,6 @@ watch(selectedBotId, (newId) => {
 	}
 });
 </script>
-
-
-
 
 <template>
 	<div class="pb-10 pt-10 min-h-[calc(100vh-5rem)]">

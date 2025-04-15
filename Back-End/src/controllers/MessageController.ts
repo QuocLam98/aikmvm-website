@@ -4,6 +4,10 @@ import BotModel from '../models/BotModel'
 import MessageModel from '../models/MessageModel'
 import app from '~/app'
 import Decimal from 'decimal.js'
+import UseBotModel from '~/models/UseBotModel'
+import { WebSocketServer } from 'ws'
+
+const wss = new WebSocketServer({ port: 4000 })
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
 
@@ -33,8 +37,38 @@ const controllerMessage = new Elysia()
       limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
     })
   })
+  .post('/list-message-bot/:id', async ({ params, body }) => {
+    const page = body.page ?? 1
+    const limit = body.limit ?? 10
+
+    const getIdUser = app.service.swat.parse(body.token).subject
+
+    const skip = (page - 1) * limit
+
+    const [messages, total] = await Promise.all([
+      MessageModel.find({ bot: params.id , user: getIdUser}).skip(skip).limit(limit),
+      MessageModel.countDocuments()
+    ])
+
+    return {
+      message: 'success',
+      status: 200,
+      data: messages,
+      total: total
+    }
+  }, {
+    params: t.Object({ id: idMongodb }),
+    body: t.Object({
+      token: t.String(),
+      page: t.Optional(t.Number({ minimum: 1 })),
+      limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
+    })
+  })
   .post('/create-message', async ({ body }) => {
-    const user = await UserModel.findById(body.user)
+
+    const getIdUser = app.service.swat.parse(body.token).subject
+
+    const user = await UserModel.findById(getIdUser)
 
     if (!user) return {
       message: 'fail',
@@ -53,13 +87,24 @@ const controllerMessage = new Elysia()
       status: 404
     }
 
+    const useBot = await UseBotModel.findOne({ bot: bot._id, user: user._id })
+    let templateMessageGet = ''
+    if (!useBot)
+    {
+      templateMessageGet = bot.templateMessage
+    }
+
+    else {
+      templateMessageGet = useBot.templateMessage
+    }
+
     const completions = await app.service.openai.chat.completions.create({
       model: "gpt-4o-mini",
       store: true,
       messages: [
         {
           "role": "developer",
-          "content": body.templateMessage?.trim() ? body.templateMessage : bot.templateMessage
+          "content": templateMessageGet 
         },
         {
           "role": "user",
@@ -80,16 +125,15 @@ const controllerMessage = new Elysia()
     
 
     const totalCostInput = priceTokenRequest.mul(priceTokenInput)
-    const totalCostOutput = priceTokenRequest.mul(priceTokenOutput)
+    const totalCostOutput = priceTokenResponse.mul(priceTokenOutput)
 
 
     const totalCostRealInput = totalCostInput.mul(25)
     const totalCostRealOutput = totalCostOutput.mul(25)
 
     const messageCreated = await MessageModel.create({
-      user: body.user,
+      user: user._id,
       bot: body.bot,
-      templateMessage: body.templateMessage,
       contentUser: body.message,
       contentBot: completions.choices[0].message.content,
       tookenRequest: completions.usage?.prompt_tokens,
@@ -105,16 +149,25 @@ const controllerMessage = new Elysia()
       creditUsed: creditUsedUpdate,
     })
 
-    return {
-      message: 'success',
-      status: 200,
-      data: messageCreated,
+    const messageData = {
+      contentBot: completions.choices[0].message.content,
+      createdAt: messageCreated.createdAt
     }
+    
+    // Gửi tới tất cả client đang kết nối tới bot đó
+    wss.clients.forEach((client) => {
+      if (
+        client.readyState === WebSocket.OPEN &&
+        (client as any).botId === bot._id.toString()
+      ) {
+        client.send(JSON.stringify(messageData))
+      }
+    })
+
   }, {
     body: t.Object({
-      user: t.String({ maxLength: 50 }),
-      bot: t.String({ maxLength: 250 }),
-      templateMessage: t.String({ maxLength: 1500 }),
+      token: t.String(),
+      bot: t.String({bot: idMongodb}),
       message: t.String({ maxLength: 1500 }),
     })
   })

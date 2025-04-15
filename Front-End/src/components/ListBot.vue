@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, reactive } from 'vue'
 import axios from 'axios'
+import { useToast } from 'vue-toast-notification';
 
 // Interface dữ liệu người dùng
 interface Bot {
@@ -23,7 +24,7 @@ const botDetail = reactive({
   templateMessage: '',
 })
 const titleModal = ref('')
-
+const toast = useToast();
 
 const totalPages = computed(() => Math.ceil(totalItems.value / perPage.value))
 const visiblePages = computed(() => {
@@ -107,12 +108,18 @@ const updateUserDetail = async () => {
       })
       
       bots.value.unshift(response.data) // thêm vào đầu danh sách
-
+      toast.success('Thêm mới thành công!', {
+				position: 'top-right',
+				duration: 3000
+			});
       // Đóng modal
       const modal: any = document.getElementById('modal_bot_detail')
       if (modal?.close) modal.close()
     } catch (error) {
-      console.error('Lỗi khi tạo bot:', error)
+      toast.error('Lỗi khi lưu dữ liệu!', {
+			position: 'top-right',
+			duration: 3000
+		});
     }
   }
   else {
@@ -123,12 +130,18 @@ const updateUserDetail = async () => {
       const findBot = bots.value.findIndex(x => x._id === respone.data._id)
       console.log(respone)
       bots.value[findBot] = respone.data
-
+      toast.success('Cập nhật thành công!', {
+				position: 'top-right',
+				duration: 3000
+			});
       // Đóng modal
       const modal: any = document.getElementById('modal_bot_detail')
       if (modal?.close) modal.close()
     } catch (error) {
-      console.error('Lỗi khi cập nhật user:', error)
+      toast.error('Lỗi khi lưu dữ liệu!', {
+			position: 'top-right',
+			duration: 3000
+		});
     }
   }
 }
