@@ -5,9 +5,6 @@ import MessageModel from '../models/MessageModel'
 import app from '~/app'
 import Decimal from 'decimal.js'
 import UseBotModel from '~/models/UseBotModel'
-import { WebSocketServer } from 'ws'
-
-const wss = new WebSocketServer({ port: 4000 })
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
 
@@ -46,7 +43,7 @@ const controllerMessage = new Elysia()
     const skip = (page - 1) * limit
 
     const [messages, total] = await Promise.all([
-      MessageModel.find({ bot: params.id , user: getIdUser}).skip(skip).limit(limit),
+      MessageModel.find({ bot: params.id, user: getIdUser }).skip(skip).limit(limit).sort({ createdAt: +1 }),
       MessageModel.countDocuments()
     ])
 
@@ -89,8 +86,7 @@ const controllerMessage = new Elysia()
 
     const useBot = await UseBotModel.findOne({ bot: bot._id, user: user._id })
     let templateMessageGet = ''
-    if (!useBot)
-    {
+    if (!useBot) {
       templateMessageGet = bot.templateMessage
     }
 
@@ -104,11 +100,11 @@ const controllerMessage = new Elysia()
       messages: [
         {
           "role": "developer",
-          "content": templateMessageGet 
+          "content": templateMessageGet
         },
         {
           "role": "user",
-          "content": body.message
+          "content": body.content
         },
       ],
     });
@@ -116,13 +112,13 @@ const controllerMessage = new Elysia()
     let priceTokenRequest = new Decimal(0)
     let priceTokenResponse = new Decimal(0)
     const priceTokenInput = new Decimal(0.0000006)
-    const priceTokenOutput = new Decimal(0.0000024 )
+    const priceTokenOutput = new Decimal(0.0000024)
 
     if (completions.usage !== undefined && completions.usage !== null) {
       priceTokenRequest = new Decimal(completions.usage.prompt_tokens);
       priceTokenResponse = new Decimal(completions.usage.completion_tokens);
-  }
-    
+    }
+
 
     const totalCostInput = priceTokenRequest.mul(priceTokenInput)
     const totalCostOutput = priceTokenResponse.mul(priceTokenOutput)
@@ -134,7 +130,7 @@ const controllerMessage = new Elysia()
     const messageCreated = await MessageModel.create({
       user: user._id,
       bot: body.bot,
-      contentUser: body.message,
+      contentUser: body.content,
       contentBot: completions.choices[0].message.content,
       tookenRequest: completions.usage?.prompt_tokens,
       tookendResponse: completions.usage?.completion_tokens,
@@ -153,22 +149,14 @@ const controllerMessage = new Elysia()
       contentBot: completions.choices[0].message.content,
       createdAt: messageCreated.createdAt
     }
-    
-    // Gửi tới tất cả client đang kết nối tới bot đó
-    wss.clients.forEach((client) => {
-      if (
-        client.readyState === WebSocket.OPEN &&
-        (client as any).botId === bot._id.toString()
-      ) {
-        client.send(JSON.stringify(messageData))
-      }
-    })
+
+    return messageData
 
   }, {
     body: t.Object({
       token: t.String(),
-      bot: t.String({bot: idMongodb}),
-      message: t.String({ maxLength: 1500 }),
+      bot: t.String({ bot: idMongodb }),
+      content: t.String({ maxLength: 1500 }),
     })
   })
   .post('/createmessage-test', async () => {
