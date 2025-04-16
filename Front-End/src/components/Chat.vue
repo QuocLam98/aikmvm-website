@@ -8,18 +8,6 @@ interface Bot {
   createdAt: string
 }
 
-interface IMessage {
-  bot: string
-  user: string
-  contentUser: string
-  contentBot: string
-  tookenRequest: string
-  tookendResponse: string
-  creditCost: number
-  updatedAt: string
-  createdAt: string
-}
-
 interface ChatMessage {
   sender: 'user' | 'bot'
   content: string
@@ -36,6 +24,7 @@ const limit = 20
 const hasMore = ref(true)
 const loading = ref(false)
 const newMessage = ref('')
+const isBotTyping = ref(false);  // Trạng thái đang trả lời
 
 onMounted(async () => {
   const role = localStorage.getItem('role');
@@ -55,37 +44,6 @@ onMounted(async () => {
   }
 })
 
-// Khởi tạo WebSocket
-let socket: WebSocket | null = null
-
-// Kết nối WebSocket
-const connectWebSocket = (botId: string) => {
-  socket = new WebSocket(`ws://localhost:3000/chat/${botId}`)
-
-  socket.onopen = () => {
-    console.log('WebSocket kết nối thành công')
-  }
-
-  socket.onmessage = (event) => {
-    const messageData = JSON.parse(event.data)
-    const newMessage: ChatMessage = {
-      sender: 'bot',
-      content: messageData.contentBot,
-      createdAt: messageData.createdAt
-    }
-    messages.value.push(newMessage)
-  }
-
-  socket.onerror = (error) => {
-    console.error('Lỗi WebSocket:', error)
-  }
-
-  socket.onclose = () => {
-    console.log('WebSocket đã đóng')
-  }
-}
-
-// Hàm gửi tin nhắn qua API
 const sendMessage = async () => {
   const content = newMessage.value.trim()
   if (!content || !selectedBot.value) return
@@ -94,43 +52,55 @@ const sendMessage = async () => {
   const token = localStorage.getItem('token')
 
   try {
-    // Đẩy tin nhắn người dùng lên trước
+    // Thêm tin nhắn user
     messages.value.push({
       sender: 'user',
       content,
       createdAt: new Date().toISOString()
     })
 
+    // Reset input và cuộn
     newMessage.value = ''
+    nextTick(() => {
+      chatContainer.value?.scrollTo({ top: chatContainer.value.scrollHeight })
+    })
 
-    // Kết nối WebSocket (nếu chưa kết nối)
-    if (!socket || socket.readyState !== WebSocket.OPEN) {
-      connectWebSocket(selectedBot.value._id)
-    }
+    // Hiển thị "bot đang trả lời..."
+    isBotTyping.value = true
+    messages.value.push({
+      sender: 'bot',
+      content: 'Đang trả lời...',
+      createdAt: new Date().toISOString()
+    })
 
-     await axios.post('http://localhost:3000/create-message', {
-      botId: selectedBot.value._id,
+    const response = await axios.post('http://localhost:3000/create-message', {
+      bot: selectedBot.value._id,
       content,
       token
     })
 
-    // Không cần đẩy phản hồi bot từ API nữa nếu WebSocket server sẽ trả
-    // const botReply = response.data.contentBot
-    // messages.value.push({
-    //   sender: 'bot',
-    //   content: botReply,
-    //   createdAt: new Date().toISOString()
-    // })
+    // Gỡ bỏ tin nhắn "Đang trả lời..."
+    messages.value.pop()
+
+    // Thêm nội dung thật sự của bot
+    const { contentBot, createdAt } = response.data
+    messages.value.push({
+      sender: 'bot',
+      content: contentBot,
+      createdAt
+    })
 
     nextTick(() => {
       chatContainer.value?.scrollTo({ top: chatContainer.value.scrollHeight })
     })
   } catch (error) {
     console.error('Lỗi khi gửi tin nhắn:', error)
+  } finally {
+    isBotTyping.value = false
   }
 }
 
-// Hàm lấy tin nhắn theo trang
+
 async function fetchMessages(botId: string, userId: string, isLoadMore = false) {
   if (loading.value || !hasMore.value) return
   loading.value = true
@@ -167,14 +137,14 @@ async function fetchMessages(botId: string, userId: string, isLoadMore = false) 
     })
 
     // Sắp xếp theo thứ tự thời gian (từ mới nhất đến cũ nhất)
-    newMessages.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    // newMessages.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
     // Nếu là load more tin nhắn, thêm vào đầu mảng
     if (isLoadMore) {
       messages.value = [...newMessages, ...messages.value]
     } else {
-      // Nếu là lấy tin nhắn mới, thêm vào cuối mảng
-      messages.value = [...messages.value, ...newMessages]
+      // Nếu là lấy tin nhắn mới, thêm vào đầu mảng (tin nhắn mới sẽ luôn ở đầu)
+      messages.value = [...newMessages, ...messages.value]
     }
 
     // Kiểm tra nếu không còn tin nhắn nữa
@@ -188,12 +158,8 @@ async function fetchMessages(botId: string, userId: string, isLoadMore = false) 
   }
 }
 
-// Chọn bot
 const selectBot = async (bot: Bot) => {
-  // Reset tin nhắn cũ khi chọn bot mới
   messages.value = []
-
-  // Cập nhật bot đã chọn
   selectedBot.value = bot
 
   const email = localStorage.getItem('email')
@@ -208,7 +174,6 @@ const selectBot = async (bot: Bot) => {
   }
 }
 
-// Xử lý cuộn lên đầu để load thêm tin nhắn
 function handleScroll() {
   const el = chatContainer.value
   if (!el || loading.value || !hasMore.value) return
@@ -228,7 +193,6 @@ function handleScroll() {
   }
 }
 </script>
-
 
 <template>
   <div class="pb-10 pt-10 min-h-[calc(100vh-5rem)]">
@@ -261,47 +225,43 @@ function handleScroll() {
             </div>
           </div>
 
-          <!-- Khu vực hiển thị tin nhắn -->
           <div v-if="selectedBot" ref="chatContainer"
             class="chat-scroll bg-zinc-50 border-l border-base-300 w-full shadow-inner py-2 overflow-y-auto"
             style="height: calc(10px - 7.6rem + 82vh);" @scroll="handleScroll">
 
-            <!-- Tin nhắn -->
             <div v-for="(message, index) in messages" :key="index"
               :class="message.sender === 'user' ? 'chat chat-end' : 'chat chat-start'">
-              <div class="chat-bubble">{{ message.content }}</div>
-
-              <!-- Avatar nếu là bot -->
               <div v-if="message.sender === 'bot'" class="chat-image avatar">
-                <div class="w-10 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"
-                    class="icon swap-on w-6 h-6 text-success">
-                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2">
-                      <path d="M11.217 19.384A3.501 3.501 0 0 0 18 18.167V13l-6-3.35"></path>
-                      <path d="M5.214 15.014A3.501 3.501 0 0 0 9.66 20.28L14 17.746V10.8"></path>
-                      <path
-                        d="M6 7.63c-1.391-.236-2.787.395-3.534 1.689a3.474 3.474 0 0 0 1.271 4.745L8 16.578l6-3.348">
-                      </path>
-                      <path d="M12.783 4.616A3.501 3.501 0 0 0 6 5.833V10.9l6 3.45"></path>
-                      <path d="M18.786 8.986A3.501 3.501 0 0 0 14.34 3.72L10 6.254V13.2"></path>
-                      <path
-                        d="M18 16.302c1.391.236 2.787-.395 3.534-1.689a3.474 3.474 0 0 0-1.271-4.745l-4.308-2.514L10 10.774">
-                      </path>
-                    </g>
-                  </svg>
-                </div>
+                  <!-- icon bot -->
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="false"
+                  role="img" class="icon swap-on w-6 h-6 text-success" width="1em" height="1em" viewBox="0 0 24 24">
+                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M11.217 19.384A3.501 3.501 0 0 0 18 18.167V13l-6-3.35"></path>
+                    <path d="M5.214 15.014A3.501 3.501 0 0 0 9.66 20.28L14 17.746V10.8"></path>
+                    <path d="M6 7.63c-1.391-.236-2.787.395-3.534 1.689a3.474 3.474 0 0 0 1.271 4.745L8 16.578l6-3.348">
+                    </path>
+                    <path d="M12.783 4.616A3.501 3.501 0 0 0 6 5.833V10.9l6 3.45"></path>
+                    <path d="M18.786 8.986A3.501 3.501 0 0 0 14.34 3.72L10 6.254V13.2"></path>
+                    <path
+                      d="M18 16.302c1.391.236 2.787-.395 3.534-1.689a3.474 3.474 0 0 0-1.271-4.745l-4.308-2.514L10 10.774">
+                    </path>
+                  </g>
+                </svg>
+              </div>
+              <div class="chat-bubble">
+                <span v-if="message.content === 'Đang trả lời...'">
+                  Đang trả lời<span class="dot-typing"></span>
+                </span>
+                <span v-else>{{ message.content }}</span>
               </div>
             </div>
 
           </div>
 
-          <!-- Nếu chưa chọn bot -->
           <div v-else class="flex items-center justify-center h-full text-gray-400">
             <p>Chọn một bot để bắt đầu trò chuyện</p>
           </div>
 
-          <!-- Phần input để gửi tin nhắn -->
           <div class="bg-white py-2 px-3 border-l flex border-t border-base-300">
             <input v-model="newMessage" @keydown.enter="sendMessage" placeholder="Viết gì đó ..." type="text"
               class="input-chat w-full border-none focus-within:ring-0 px-0 focus-visible:outline-none"
@@ -316,7 +276,6 @@ function handleScroll() {
           </div>
         </div>
 
-        <!-- Sidebar Bot -->
         <div class="drawer-side scrollbar-none"><label class="drawer-overlay"></label>
           <div id="nMYDQlaP6BQ_0" class="bg-base-100 min-h-full">
             <div class="px-5 py-3 bg-gray-100 flex justify-between sticky top-0 z-10 shadow">
@@ -334,7 +293,9 @@ function handleScroll() {
       </div>
     </div>
   </div>
+
 </template>
+
 
 
 <style>
@@ -371,4 +332,15 @@ svg {
 .input-chat {
   color: black;
 }
+.dot-typing::after {
+  content: ' .';
+  animation: dots 1.5s steps(3, end) infinite;
+}
+@keyframes dots {
+  0% { content: ' .'; }
+  33% { content: ' ..'; }
+  66% { content: ' ...'; }
+  100% { content: ' .'; }
+}
+
 </style>
