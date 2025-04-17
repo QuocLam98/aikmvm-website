@@ -1,9 +1,15 @@
-FROM oven/bun:latest
+FROM oven/bun:latest AS build
 
-WORKDIR /App
+WORKDIR /app
 
-ADD . .
+COPY . .
 
 RUN bun i
 
-CMD serve dist
+RUN bun run build
+
+FROM nginx:alpine AS production
+
+COPY --from=build /app/dist /var/www/html
+
+CMD ["nginx", "-g", "daemon off;"]
