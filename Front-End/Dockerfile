@@ -6,4 +6,4 @@ ADD . .
 
 RUN bun i
 
-CMD bun run index.html
+CMD serve dist
