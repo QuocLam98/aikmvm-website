@@ -26,24 +26,22 @@ const closeModal3 = () => {
 
 const getQR = async () => {
   try {
-    const bankAccount = '0902219942' // Ví dụ tài khoản ngân hàng
     const email = localStorage.getItem('email') || 'guest@example.com'
     const amount = selectedPrice.value.replace(/\D/g, '') // Lấy giá trị tiền từ `selectedPrice` và loại bỏ ký tự không phải số
-    
+
     // Gọi API để tạo QR
     const response = await axios.post('https://api.vietqr.io/v2/generate', {
       accountNo: bankAccount,
       accountName: 'AI kỷ nguyên vươn mình',
-      acqId: '970436',
+      acqId: '970425',
       amount: amount,
       addInfo: email,
       format: 'text',
       template: 'compact'
     })
-
     // Lấy URL QR và gán vào `qrImg`
-    qrImg.value = response.data.data.qrDataURL
-    console.log(response.data.data) // In ra URL QR cho kiểm tra
+    // qrImg.value = response.data.data.qrDataURL
+    console.log(response.data) // In ra URL QR cho kiểm tra
   } catch (error) {
     console.error('Có lỗi khi tạo QR:', error)
   }
