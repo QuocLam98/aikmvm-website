@@ -12,6 +12,7 @@ const emailError = ref('');
 const passwordError = ref('');
 const confirmPasswordError = ref('');
 const router = useRouter();
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const validate = () => {
     emailError.value = '';
@@ -56,7 +57,7 @@ const register = async () => {
     if (!validate()) return;
     errorMessage.value = '';
     try {
-        await axios.post('http://localhost:3000/register', {
+        await axios.post(`http://${urlServer}/register`, {
             email: email.value,
             password: password.value,
             name: email.value
