@@ -57,7 +57,7 @@ const register = async () => {
     if (!validate()) return;
     errorMessage.value = '';
     try {
-        await axios.post(`http://${urlServer}/register`, {
+        await axios.post(`https://${urlServer}/register`, {
             email: email.value,
             password: password.value,
             name: email.value
