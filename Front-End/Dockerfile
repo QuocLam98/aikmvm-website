@@ -6,7 +6,7 @@ COPY . .
 
 RUN bun i
 
-RUN bun run build
+RUN bun run build-only
 
 FROM nginx:alpine AS production
 
