@@ -13,4 +13,5 @@ const app = createApp(App)
 app.use(ToastPlugin)
 app.use(router)
 
+console.log('Client success')
 app.mount('#app')
