@@ -1,7 +1,4 @@
-import dotenv from "dotenv";
 import { defineProvider } from './Application'
-
-dotenv.config(); 
 
 
 export default defineProvider(() => {
@@ -10,7 +7,8 @@ export default defineProvider(() => {
         CONNECT : process.env.CONNECT_STRING_MONGODB as string,
         JWT_ALG : process.env.JWT_ALG as string,
         JWT_SECRET : process.env.JWT_SECRET as string,
-        OPENAI_KEY: process.env.OPENAI_KEY as string
+        OPENAI_KEY: process.env.OPENAI_KEY as string,
+        URL_CLIENT: process.env.URL_CLIENT as string
     }
 
     return {config}
