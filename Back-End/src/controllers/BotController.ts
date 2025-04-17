@@ -12,7 +12,7 @@ const controllerBot = new Elysia()
     const skip = (page - 1) * limit
 
     const [bots, total] = await Promise.all([
-      BotModel.find().skip(skip).limit(limit),
+      BotModel.find().skip(skip).limit(limit).sort({ createdAt: -1 }),
       BotModel.countDocuments()
     ])
 

@@ -16,7 +16,7 @@ const controllerMessage = new Elysia()
     const skip = (page - 1) * limit
 
     const [messages, total] = await Promise.all([
-      MessageModel.find().skip(skip).limit(limit)
+      MessageModel.find().skip(skip).limit(limit).sort({ createdAt: -1 })
         .populate('user', ['name'])
         .populate('bot', ['name']),
       MessageModel.countDocuments()

@@ -63,7 +63,7 @@ onMounted(async () => {
             <div></div>
             <div></div>
           </div>
-          <h2 class="card-title text-black">
+          <!-- <h2 class="card-title text-black">
             Các gói đã đăng ký
           </h2>
           <div class="overflow-x-scroll">
@@ -80,7 +80,7 @@ onMounted(async () => {
               </thead>
               <tbody>
                 <tr class="hover">
-                  <td class="text-black"><strong>Trial one year</strong><!----><!----></td>
+                  <td class="text-black"><strong>Trial one year</strong></td>
                   <td class="text-black">0/1</td>
                   <td class="text-black">0/50</td>
                   <td class="text-black">17/03/2025</td>
@@ -88,7 +88,7 @@ onMounted(async () => {
                   <td class="text-black"></td>
                 </tr>
                 <tr class="hover">
-                  <td><strong>Trial one week</strong><!----><!----></td>
+                  <td><strong>Trial one week</strong></td>
                   <td>0/1</td>
                   <td>0/0</td>
                   <td>17/03/2025</td>
@@ -97,12 +97,12 @@ onMounted(async () => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> -->
         </div>
-        <div class="card-actions p-4 border-t border-base-300">
-          <button class="btn btn-success btn-outline" onclick="my_modal_2.showModal()"> Xem bảng giá &amp; gia
+        <!-- <div class="card-actions p-4 border-t border-base-300">
+          <button class="btn btn-success btn-outline" @click="showModal2 = true"> Xem bảng giá &amp; gia
             hạn </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

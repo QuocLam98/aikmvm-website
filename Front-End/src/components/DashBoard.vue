@@ -8,7 +8,7 @@ import axios from 'axios';
 const router = useRouter()
 const isNavOpen = ref(true)
 const checkRole = ref(true)
-const showModal2 = ref(true)
+const showModal2 = ref(false)
 const showModal3 = ref(false)
 const bankName = import.meta.env.VITE_NAME_BANK
 const bankAccount = import.meta.env.VITE_BANK_ACCOUNT
