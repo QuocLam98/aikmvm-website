@@ -28,7 +28,6 @@ onMounted(async () => {
 
     credit.value = response.data.credit;
     creditUsed.value = response.data.creditUsed;
-    console.log(response.data.creditUsed)
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu:', error);
   }

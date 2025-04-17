@@ -123,3 +123,12 @@ color-mix(in oklab, #0C0E14 10%, transparent);
     height: calc(var(--spacing, .25rem)* 6);
     width: calc(var(--spacing, .25rem)* 6);
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-opacity duration-300;
+}
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0;
+}

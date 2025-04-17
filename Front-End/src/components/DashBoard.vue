@@ -2,11 +2,72 @@
 import { ref, watch, onMounted } from 'vue';
 import '../assets/dashboard.css';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
+
 
 const router = useRouter()
 const isNavOpen = ref(true)
 const checkRole = ref(true)
+const showModal2 = ref(true)
+const showModal3 = ref(false)
+const bankName = import.meta.env.VITE_NAME_BANK
+const bankAccount = import.meta.env.VITE_BANK_ACCOUNT
+const ownerAccount = import.meta.env.VITE_OWNER_ACCOUNT
+const selectedPrice = ref('')
+const paymentNote = ref('')
+const qrImg = ref('')
+const closeModal2 = () => {
+  showModal2.value = false
+}
 
+const closeModal3 = () => {
+  showModal3.value = false
+}
+
+const getQR = async () => {
+  try {
+    const bankAccount = '0902219942' // Ví dụ tài khoản ngân hàng
+    const email = localStorage.getItem('email') || 'guest@example.com'
+    const amount = selectedPrice.value.replace(/\D/g, '') // Lấy giá trị tiền từ `selectedPrice` và loại bỏ ký tự không phải số
+    
+    // Gọi API để tạo QR
+    const response = await axios.post('https://api.vietqr.io/v2/generate', {
+      accountNo: bankAccount,
+      accountName: 'AI kỷ nguyên vươn mình',
+      acqId: '970436',
+      amount: amount,
+      addInfo: email,
+      format: 'text',
+      template: 'compact'
+    })
+
+    // Lấy URL QR và gán vào `qrImg`
+    qrImg.value = response.data.data.qrDataURL
+    console.log(response.data.data) // In ra URL QR cho kiểm tra
+  } catch (error) {
+    console.error('Có lỗi khi tạo QR:', error)
+  }
+}
+
+const goToPayment = async (item: any) => {
+  selectedPrice.value = item.price
+  const email = localStorage.getItem('email') || 'guest@example.com'
+  paymentNote.value = `${email}`
+
+  await getQR()
+
+  showModal2.value = false
+  setTimeout(() => {
+    showModal3.value = true
+  }, 300)
+}
+
+const plans = [
+  { price: '25.000',format: 'vnđ' , credits: 1, features: ['Tự động trả lời bằng AI Chatbot', 'Miễn phí tích hợp và training AI', 'Hỏi mọi thứ trên ChatGPT'] },
+  { price: '125.000',format: 'vnđ' , credits: 5, features: ['Tự động trả lời bằng AI Chatbot', 'Miễn phí tích hợp và training AI', 'Hỏi mọi thứ trên ChatGPT'] },
+  { price: '290.000',format: 'vnđ' , credits: 10, features: ['Tự động trả lời bằng AI Chatbot', 'Miễn phí tích hợp và training AI', 'Hỏi mọi thứ trên ChatGPT'] },
+  { price: '1.200.000',format: 'vnđ' , credits: 50, features: ['Tự động trả lời bằng AI Chatbot', 'Miễn phí tích hợp và training AI', 'Hỏi mọi thứ trên ChatGPT'] },
+]
 // Theo dõi sự thay đổi của checkbox để cập nhật trạng thái
 watch(isNavOpen, (newVal) => {
 
@@ -31,6 +92,8 @@ const logout = () => {
   localStorage.clear() // Xóa token khỏi localStorage
   router.push('/login') // Chuyển hướng về trang đăng nhập
 };
+
+
 </script>
 
 <template>
@@ -48,7 +111,7 @@ const logout = () => {
           <a class="btn btn-ghost normal-case text-xl text-black btn-hover">AIknvm</a>
         </div>
         <div class="navbar-end">
-          <button class="btn" onclick="my_modal_2.showModal()">Gia hạn</button>
+          <button class="btn" @click="showModal2 = true">Gia hạn</button>
         </div>
       </div>
       <router-view></router-view>
@@ -197,80 +260,74 @@ const logout = () => {
       </ul>
     </div>
   </div>
-  <dialog id="my_modal_2" class="modal">
-    <div class="modal-box max-w-7xl xl:max-w-[95vw] w-full [&>button.absolute]:z-10 bg-base-200">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      <section class="">
-        <div class="px-3">
-          <div class="text-center my-5">
-            <h2 class="section-title">Bảng giá dịch vụ</h2>
-          </div>
-          <div class="grid gap-3 lg:grid-cols-4 sm:grid-cols-2">
-            <div class="card shadow bg-base-100 hover:shadow-lg transition-all duration-300">
-              <div class="card-body text-center px-3">
-                <h3 class="card-title block">350.000 vnđ</h3>
-                <div class="my-3">
-                  <p class="text-lg font-semibold text-secondary">10 credits</p>
+  <div>
+    <!-- Modal 2 -->
+    <Transition name="fade">
+      <dialog v-if="showModal2" id="my_modal_2" class="modal" open>
+        <div class="modal-box max-w-7xl xl:max-w-[95vw] w-full [&>button.absolute]:z-10 bg-base-200">
+          <button @click="closeModal2" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <section class="">
+            <!-- Nội dung bảng giá -->
+            <div class="grid gap-3 lg:grid-cols-4 sm:grid-cols-2">
+              <div v-for="(item, index) in plans" :key="index"
+                class="card shadow bg-base-100 hover:shadow-lg transition-all duration-300">
+                <div class="card-body text-center px-3">
+                  <h3 class="card-title block">{{ item.price }} {{ item.format }}</h3>
+                  <div class="my-3">
+                    <p class="text-lg font-semibold text-secondary">{{ item.credits }} credits</p>
+                  </div>
+                  <ul class="text-left">
+                    <li v-for="(feature, idx) in item.features" :key="idx" class="flex space-x-3">
+                      <span>✔</span>
+                      <span>{{ feature }}</span>
+                    </li>
+                  </ul>
+                  <button @click="goToPayment(item)" class="btn btn-primary mt-5">Đăng ký ngay</button>
                 </div>
-                <ul class="text-left">
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Gửi tin hàng loạt FB, Zalo (tốc độ thường)</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Tự động trả lời bằng AI Chatbot</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Miễn phí tích hợp và training AI</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Hỏi mọi thứ trên ChatGPT</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Không giới hạn website, fanpage</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon check"
-                      width="1em" height="1em" viewBox="0 0 16 16">
-                      <path fill="currentColor"
-                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093l3.473-4.425z">
-                      </path>
-                    </svg> Nhận diện SĐT từ website, FB</li>
-                  <li class="flex space-x-3"><svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon not"
-                      width="1em" height="1em" viewBox="0 0 24 24">
-                      <path fill="currentColor"
-                        d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4">
-                      </path>
-                    </svg> Ẩn "Powered by Tudongchat.com"</li>
-                </ul>
               </div>
             </div>
-          </div>
+            <div class="text-center mt-5">(*) 1 credits = 1 USD</div>
+          </section>
         </div>
-      </section>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
-  </dialog>
+      </dialog>
+    </Transition>
+
+    <!-- Modal 3 -->
+    <Transition name="fade">
+      <dialog v-if="showModal3" id="my_modal_3" class="modal" open>
+        <div class="modal-box max-w-7xl xl:max-w-[95vw] w-full [&>button.absolute]:z-10 bg-base-200">
+          <button @click="closeModal3" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <section class="">
+            <div class="px-3">
+              <div class="text-center my-5">
+                <h2 class="section-title">Thanh toán</h2>
+              </div>
+              <div class="grid gap-5 md:grid-cols-2">
+                <div class="bg-white rounded w-full p-5 shadow-lg">
+                  <img :src="qrImg" class="max-w-xs mx-auto" />
+                </div>
+                <div class="md:order-first flex flex-col space-y-5">
+                  <div class="p-5 bg-white rounded shadow">
+                    <ul class="text-lg">
+                      <li><strong>{{ bankName }}</strong></li>
+                      <li>Số tài khoản: <span class="text-info font-mono tracking-wider">{{ bankAccount }}</span></li>
+                      <li>Chủ tài khoản: <strong class="text-info">{{ ownerAccount }}</strong></li>
+                    </ul>
+                  </div>
+                  <div class="p-5 bg-white rounded text-center h-full shadow">
+                    <p class="text-xl">Chuyển khoản: <span class="text-info font-mono">{{ selectedPrice }}</span></p>
+                    <p class="text-xl">Nội dung: <span class="text-info">{{ paymentNote }}</span></p>
+                    <div class="divider"></div>
+                    <p class="opacity-70">
+                      Tài khoản của bạn sẽ được kích hoạt ngay khi chúng tôi nhận được chuyển khoản
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </dialog>
+    </Transition>
+  </div>
 </template>
