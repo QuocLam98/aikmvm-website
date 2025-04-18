@@ -8,12 +8,12 @@
 .drawer-side {
     position: unset;
 }
-@media (width >= 64rem) {
+@media (width >= 10rem) {
     .lg\:drawer-open>.drawer-toggle {
         display: none;
     }
 }
-@media (width >= 64rem) {
+@media (width >= 10rem) {
     .lg\:drawer-open>.drawer-toggle~.drawer-side {
         display: block;
         opacity: 1;
@@ -37,7 +37,7 @@
 .min-heght {
      min-height: calc(100vh - 5rem);
 }
-@media (width >= 64rem) {
+@media (width >= 10rem) {
     .lg\:drawer-open>.drawer-side {
         overflow-y: auto;
     }
