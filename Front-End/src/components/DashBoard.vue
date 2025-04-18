@@ -8,7 +8,7 @@ import axios from 'axios';
 const router = useRouter()
 const isNavOpen = ref(true)
 const checkRole = ref(true)
-const showModal2 = ref(false)
+const showModal2 = ref(true)
 const showModal3 = ref(false)
 const bankName = import.meta.env.VITE_NAME_BANK
 const bankAccount = import.meta.env.VITE_BANK_ACCOUNT
@@ -26,22 +26,24 @@ const closeModal3 = () => {
 
 const getQR = async () => {
   try {
+    const bankAccount = '0902219942' // Ví dụ tài khoản ngân hàng
     const email = localStorage.getItem('email') || 'guest@example.com'
     const amount = selectedPrice.value.replace(/\D/g, '') // Lấy giá trị tiền từ `selectedPrice` và loại bỏ ký tự không phải số
-
+    
     // Gọi API để tạo QR
     const response = await axios.post('https://api.vietqr.io/v2/generate', {
       accountNo: bankAccount,
       accountName: 'AI kỷ nguyên vươn mình',
-      acqId: '970425',
+      acqId: '970436',
       amount: amount,
       addInfo: email,
       format: 'text',
       template: 'compact'
     })
+
     // Lấy URL QR và gán vào `qrImg`
-    // qrImg.value = response.data.data.qrDataURL
-    console.log(response.data) // In ra URL QR cho kiểm tra
+    qrImg.value = response.data.data.qrDataURL
+    console.log(response.data.data) // In ra URL QR cho kiểm tra
   } catch (error) {
     console.error('Có lỗi khi tạo QR:', error)
   }
@@ -95,7 +97,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div :class="['drawer', { 'lg:drawer-open': isNavOpen == true }]">
+  <div :class="['drawer lg:drawer-open', { 'drawer-open': isNavOpen == true }]">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" v-model="isNavOpen" />
     <div class="drawer-content bg-base-300">
       <!-- Page content here -->
