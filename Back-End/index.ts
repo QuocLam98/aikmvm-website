@@ -14,12 +14,12 @@ app.start(async () => {
 			origin: 'https://' + app.service.config.URL_CLIENT
 		})
 	)
+  console.log('https://' + app.service.config.URL_CLIENT)
   http.use(routers)
   http.listen({
     port: 3000,
     idleTimeout: 30, // Đặt timeout thành 30 giây
   })
-  console.log('run success')
   app.on('stop', () => http.stop())
   // app.logger.info(`🦊 Elysia is running at ${http.server?.hostname}:${http.server?.port}`)
 })
