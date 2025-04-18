@@ -15,8 +15,8 @@ interface Bot {
 const bots = ref<Bot[]>([])
 const totalItems = ref(0)
 const currentPage = ref(1)
-const perPage = ref(2)
-const perPageOptions = ref([2, 5, 10, 20])
+const perPage = ref(10)
+const perPageOptions = ref([10, 20, 50, 100])
 const loading = ref(false)
 const botEdit = ref<Bot | null>(null)
 const botDetail = reactive({
