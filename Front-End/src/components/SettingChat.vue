@@ -40,7 +40,7 @@ onMounted(async () => {
 
 		// Gọi API lấy list-use-bot
 		try {
-			const response = await axios.post(`http://${urlServer}/list-use-bot`, { email });
+			const response = await axios.post(`https://${urlServer}/list-use-bot`, { email });
 			useBotData = Array.isArray(response.data.data) ? response.data.data : [];
 			useBotDataRaw.value = useBotData;
 		} catch (error) {
@@ -49,7 +49,7 @@ onMounted(async () => {
 
 		// Gọi API lấy list-bot-admin
 		try {
-			const response = await axios.get(`http://${urlServer}/list-bot-admin`);
+			const response = await axios.get(`https://${urlServer}/list-bot-admin`);
 			adminBotData = Array.isArray(response.data) ? response.data : [];
 		} catch (error) {
 			console.warn('Lỗi khi gọi list-bot-admin');
@@ -76,7 +76,7 @@ onMounted(async () => {
 	} else {
 		// Người dùng bình thường, lấy danh sách use-bot
 		try {
-			const response = await axios.post(`http://${urlServer}/list-use-bot`, { email });
+			const response = await axios.post(`https://${urlServer}/list-use-bot`, { email });
 			const useBotData: UseBot[] = Array.isArray(response.data) ? response.data : [];
 			useBotDataRaw.value = useBotData;
 			bots.value = useBotData.map(u => ({
@@ -99,7 +99,7 @@ const addTemplate = async () => {
 	try {
 		if (existingUseBot && existingUseBot._id) {
 			// Nếu đã tồn tại bản ghi => cập nhật
-			const respone = await axios.put(`http://${urlServer}/update-use-bot/` + existingUseBot._id, {
+			const respone = await axios.put(`https://${urlServer}/update-use-bot/` + existingUseBot._id, {
 				templateMessage: text.value,
 			});
 			const findData = useBotDataRaw.value.findIndex(x => x._id === respone.data._id)
@@ -111,7 +111,7 @@ const addTemplate = async () => {
 			});
 		} else {
 			// Nếu chưa có => thêm mới
-			const respone = await axios.post(`http://${urlServer}/registerUseBot`, {
+			const respone = await axios.post(`https://${urlServer}/registerUseBot`, {
 				botId: selectedBotId.value,
 				templateMessage: text.value,
 				email

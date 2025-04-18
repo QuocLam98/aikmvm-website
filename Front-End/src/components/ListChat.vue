@@ -49,7 +49,7 @@ const visiblePages = computed(() => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await axios.get(`http://${urlServer}/list-message`, {
+    const response = await axios.get(`https://${urlServer}/list-message`, {
       params: {
         page: currentPage.value,
         limit: perPage.value

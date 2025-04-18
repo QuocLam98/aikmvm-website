@@ -40,7 +40,7 @@ const login = async () => {
     if (!validate()) return;
     errorMessage.value = '';
     try {
-        const response = await axios.post(`http://${urlServer}/login`, {
+        const response = await axios.post(`https://${urlServer}/login`, {
             email: email.value,
             password: password.value,
         });

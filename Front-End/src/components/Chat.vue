@@ -35,9 +35,9 @@ onMounted(async () => {
   try {
     let response;
     if (role === 'admin') {
-      response = await axios.get(`http://${urlServer}/list-bot-admin`);
+      response = await axios.get(`https://${urlServer}/list-bot-admin`);
     } else {
-      response = await axios.post(`http://${urlServer}/list-use-bot`, { email });
+      response = await axios.post(`https://${urlServer}/list-use-bot`, { email });
     }
     bots.value = response.data;
   } catch (error) {
@@ -74,7 +74,7 @@ const sendMessage = async () => {
       createdAt: new Date().toISOString()
     })
 
-    const response = await axios.post(`http://${urlServer}/create-message`, {
+    const response = await axios.post(`https://${urlServer}/create-message`, {
       bot: selectedBot.value._id,
       content,
       token
@@ -108,7 +108,7 @@ async function fetchMessages(botId: string, userId: string, isLoadMore = false) 
   const token = localStorage.getItem('token')
 
   try {
-    const res = await axios.post(`http://${urlServer}/list-message-bot/` + botId, {
+    const res = await axios.post(`https://${urlServer}/list-message-bot/` + botId, {
       token,
       page: page.value,
       limit

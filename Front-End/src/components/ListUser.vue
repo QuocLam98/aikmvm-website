@@ -55,7 +55,7 @@ const visiblePages = computed(() => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await axios.get(`http://${urlServer}/list-user`, {
+    const response = await axios.get(`https://${urlServer}/list-user`, {
       params: {
         page: currentPage.value,
         limit: perPage.value
@@ -95,7 +95,7 @@ const getUser = (data: any) => {
 
 const getUserDetail = async (id: string) => {
   try {
-    // const response = await axios.get<UserDetail>(`http://localhost:3000/user/${id}`)
+    // const response = await axios.get<UserDetail>(`https://localhost:3000/user/${id}`)
     const findUser = users.value.find(x => x._id === id)
     getUser(findUser)
     // Mở modal
@@ -109,7 +109,7 @@ const getUserDetail = async (id: string) => {
 const updateUserDetail = async () => {
 
   try {
-    const respone = await axios.put(`http://${urlServer}/update-user/${userEdit.value?._id}`, {
+    const respone = await axios.put(`https://${urlServer}/update-user/${userEdit.value?._id}`, {
       ...userDetail, credit: Number(userDetail.credit)
     })
     const findUser = users.value.findIndex(x => x._id === respone.data._id)

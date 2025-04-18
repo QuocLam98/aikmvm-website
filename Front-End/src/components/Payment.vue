@@ -23,7 +23,7 @@ onMounted(async () => {
   if (!email) return;
 
   try {
-    const response = await axios.post<User>(`http://${urlServer}/get-user`, {
+    const response = await axios.post<User>(`https://${urlServer}/get-user`, {
       email: email,
     });
 
