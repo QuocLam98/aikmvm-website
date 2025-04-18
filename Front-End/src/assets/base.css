@@ -63,3 +63,7 @@ body {
 body, input, textarea, select {
   font-family: 'Inter', Helvetica, Arial, Lucida, sans-serif;
 }
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}

@@ -194,3 +194,8 @@
         padding: 64px 0;
     }
 }
+
+@media (min-width: 992px) and (max-width: 1245px)
+{
+
+}

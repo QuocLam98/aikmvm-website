@@ -57,7 +57,7 @@ const toggleAccordion = (index: number) => {
   <main id="main-home">
     <div class="about">
       <div class="container-flur">
-        <div class="main-about grid grid-cols-2 gap-24">
+        <div class="main-about gap-24">
           <!-- <div class="h-[32rem]">
             <WindowChat />
           </div> -->
@@ -184,7 +184,7 @@ const toggleAccordion = (index: number) => {
         <div class="price-list">
           <div class="price-item">
             <div class="price-item-header bg-blue-500 text-white">
-              Nhận 2 credits
+              Nhận 1 credits
             </div>
             <div class="price-item-title text-black">
               Miễn phí
@@ -198,7 +198,32 @@ const toggleAccordion = (index: number) => {
                   <div aria-label="info" class="status status-info"></div> chỉ đăng ký 1 lần duy nhất với 1 tài khoản
                 </li>
               </ul>
-              <button class="btn btn-active btn-primary">Đăng ký ngay</button>
+              <!-- <button class="btn btn-active btn-primary">Đăng ký ngay</button> -->
+            </div>
+          </div>
+          <div class="price-item">
+            <div class="price-item-header bg-blue-500 text-white">
+              Nhận 1 credits
+            </div>
+            <div class="price-item-title text-black">
+              25.000 VNĐ
+            </div>
+            <div class="price-item-cotent">
+              <ul>
+                <li>
+                  <div aria-label="info" class="status status-info"></div> Hỏi mọi thứ trên ChatGPT
+                </li>
+                <li>
+                  <div aria-label="info" class="status status-info"></div> Trả lời nhanh hơn
+                </li>
+                <li>
+                  <div aria-label="info" class="status status-info"></div> Tối ưu câu trả lời theo ý muốn
+                </li>
+                <li>
+                  <div aria-label="info" class="status status-info"></div> Sử dụng đến khi hết credits
+                </li>
+              </ul>
+              <!-- <button class="btn btn-active btn-primary">Đăng ký ngay</button> -->
             </div>
           </div>
           <div class="price-item">
@@ -206,7 +231,7 @@ const toggleAccordion = (index: number) => {
               Nhận 5 credits
             </div>
             <div class="price-item-title text-black">
-              50k VNĐ
+              125.000 VNĐ
             </div>
             <div class="price-item-cotent">
               <ul>
@@ -223,15 +248,15 @@ const toggleAccordion = (index: number) => {
                   <div aria-label="info" class="status status-info"></div> Sử dụng đến khi hết credits
                 </li>
               </ul>
-              <button class="btn btn-active btn-primary">Đăng ký ngay</button>
+              <!-- <button class="btn btn-active btn-primary">Đăng ký ngay</button> -->
             </div>
           </div>
           <div class="price-item">
             <div class="price-item-header bg-blue-500 text-white">
-              Nhận 12 credits
+              Nhận 10 credits
             </div>
             <div class="price-item-title text-black">
-              100k VNĐ
+              290.000 VNĐ
             </div>
             <div class="price-item-cotent">
               <ul>
@@ -248,32 +273,7 @@ const toggleAccordion = (index: number) => {
                   <div aria-label="info" class="status status-info"></div> Sử dụng đến khi hết credits
                 </li>
               </ul>
-              <button class="btn btn-active btn-primary">Đăng ký ngay</button>
-            </div>
-          </div>
-          <div class="price-item">
-            <div class="price-item-header bg-blue-500 text-white">
-              Nhận 18 credits
-            </div>
-            <div class="price-item-title text-black">
-              150k VNĐ
-            </div>
-            <div class="price-item-cotent">
-              <ul>
-                <li>
-                  <div aria-label="info" class="status status-info"></div> Hỏi mọi thứ trên ChatGPT
-                </li>
-                <li>
-                  <div aria-label="info" class="status status-info"></div> Trả lời nhanh hơn
-                </li>
-                <li>
-                  <div aria-label="info" class="status status-info"></div> Tối ưu câu trả lời theo ý muốn
-                </li>
-                <li>
-                  <div aria-label="info" class="status status-info"></div> Sử dụng đến khi hết credits
-                </li>
-              </ul>
-              <button class="btn btn-active btn-primary">Đăng ký ngay</button>
+              <!-- <button class="btn btn-active btn-primary">Đăng ký ngay</button> -->
             </div>
           </div>
         </div>
