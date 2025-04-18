@@ -9,7 +9,8 @@ interface User {
   email: string
   createdAt: string
   role: string
-  credit: string
+  credit: number
+  creditUsed: number
 }
 
 interface UserDetail {
@@ -18,6 +19,7 @@ interface UserDetail {
   email: string
   credit: string
   role: string
+  creditUsed: string
 }
 
 // State
@@ -31,8 +33,9 @@ const userEdit = ref<User | null>(null)
 const userDetail = reactive({
   name: '',
   email: '',
-  credit: '',
-  role: ''
+  credit: 0,
+  role: '',
+  creditUsed: 0
 })
 const urlServer = import.meta.env.VITE_URL_SERVER
 
@@ -74,8 +77,9 @@ const closeModal = () => {
   // Reset dữ liệu
   userDetail.name = ''
   userDetail.email = ''
-  userDetail.credit = ''
+  userDetail.credit = 0
   userDetail.role = ''
+  userDetail.creditUsed = 0
   userEdit.value = null
 
   // Đóng modal
@@ -87,7 +91,7 @@ const getUser = (data: any) => {
   userEdit.value = data
 
   userDetail.name = userEdit.value?.name ?? ''
-  userDetail.credit = userEdit.value?.credit ?? ''
+  userDetail.credit = userEdit.value?.credit ?? 0
   userDetail.email = userEdit.value?.email ?? ''
   userDetail.role = userEdit.value?.role ?? ''
 
@@ -228,6 +232,10 @@ const changePerPage = () => {
           <div>
             <label class="label">Số credits</label>
             <input type="text" class="input input-bordered w-full" v-model="userDetail.credit" />
+          </div>
+          <div>
+            <label class="label">Số credit đã sử dụng</label>
+            <input type="text" class="input input-bordered w-full" v-model="userDetail.creditUsed" disabled/>
           </div>
           <div>
             <label class="label">Role</label>
