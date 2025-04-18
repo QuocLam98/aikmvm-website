@@ -58,9 +58,9 @@ const toggleAccordion = (index: number) => {
     <div class="about">
       <div class="container-flur">
         <div class="main-about grid grid-cols-2 gap-24">
-          <div class="h-[32rem]">
+          <!-- <div class="h-[32rem]">
             <WindowChat />
-          </div>
+          </div> -->
           <div class="flex flex-col">
             <strong class="text-strong text-black">
               Chatbot tự động hỗ trợ tối ưu hóa công việc mà còn nâng cao chất lượng học tập và giao tiếp cho giáo viên,
