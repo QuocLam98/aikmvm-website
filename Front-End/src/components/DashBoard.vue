@@ -97,7 +97,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div :class="['drawer lg:drawer-open', { 'd-none': isNavOpen == false }]">
+  <div :class="['drawer lg:drawer-open', { 'drawer-open': isNavOpen == true }]">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" v-model="isNavOpen" />
     <div class="drawer-content bg-base-300">
       <!-- Page content here -->
@@ -116,7 +116,7 @@ const logout = () => {
       </div>
       <router-view></router-view>
     </div>
-    <div :class="['drawer-side border-r border-base-300', { 'hidden': isNavOpen == false }]">
+    <div :class="['drawer-side border-r border-base-300', { 'd-none': isNavOpen == false }]">
       <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
       <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
         <li>
