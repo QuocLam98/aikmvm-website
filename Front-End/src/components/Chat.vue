@@ -348,6 +348,6 @@ svg {
     padding-bottom: 7px;
 }
 .list-bot {
-  width: 150px;
+  width: 150px !important;
 }
 </style>
