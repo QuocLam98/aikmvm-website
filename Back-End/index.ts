@@ -11,7 +11,7 @@ app.start(async () => {
     http.use(swagger())
   http.use(
 		cors({
-			origin: app.service.config.URL_CLIENT
+			origin: 'https://' + app.service.config.URL_CLIENT
 		})
 	)
   http.use(routers)
