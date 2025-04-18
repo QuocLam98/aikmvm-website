@@ -202,7 +202,7 @@ function handleScroll() {
         <input type="checkbox" class="drawer-toggle">
         <div class="drawer-content">
           <div
-            class="flex justify-between w-full bg-white px-2 pt-0.5 pb-1.5 shadow-md border-l border-b border-base-300 z-10">
+            class="flex justify-between w-full bg-white px-2 chat-title shadow-md border-l border-b border-base-300 z-10">
             <div class="mt-2 grid grid-flow-col-dense place-content-center gap-2">
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="false"
@@ -277,7 +277,7 @@ function handleScroll() {
           </div>
         </div>
 
-        <div class="drawer-side scrollbar-none"><label class="drawer-overlay"></label>
+        <div class="drawer-side list-bot scrollbar-none"><label class="drawer-overlay"></label>
           <div id="nMYDQlaP6BQ_0" class="bg-base-100 min-h-full">
             <div class="px-5 py-3 bg-gray-100 flex justify-between sticky top-0 z-10 shadow">
               <h2 class="font-semibold text-base my-auto">Danh sách AI</h2>
@@ -343,5 +343,11 @@ svg {
   66% { content: ' ...'; }
   100% { content: ' .'; }
 }
-
+.chat-title {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.list-bot {
+  width: 150px;
+}
 </style>

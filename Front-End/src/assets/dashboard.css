@@ -133,5 +133,5 @@ color-mix(in oklab, #0C0E14 10%, transparent);
   @apply opacity-0;
 }
 .d-none{
-    display: none;
+    display: none !important;
 }
