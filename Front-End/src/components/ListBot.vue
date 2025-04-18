@@ -25,6 +25,7 @@ const botDetail = reactive({
 })
 const titleModal = ref('')
 const toast = useToast();
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const totalPages = computed(() => Math.ceil(totalItems.value / perPage.value))
 const visiblePages = computed(() => {
@@ -45,7 +46,7 @@ const visiblePages = computed(() => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await axios.get('http://localhost:3000/list-bot', {
+    const response = await axios.get(`http://${urlServer}/list-bot`, {
       params: {
         page: currentPage.value,
         limit: perPage.value
@@ -102,7 +103,7 @@ const getUserDetail = async (id: string) => {
 const updateUserDetail = async () => {
   if (botEdit.value?._id === undefined) {
     try {
-      const response = await axios.post(`http://localhost:3000/registerBot`, {
+      const response = await axios.post(`http://${urlServer}/registerBot`, {
         name: botDetail.name,
         templateMessage: botDetail.templateMessage
       })
@@ -124,7 +125,7 @@ const updateUserDetail = async () => {
   }
   else {
     try {
-      const respone = await axios.put(`http://localhost:3000/update-bot/${botEdit.value?._id}`, {
+      const respone = await axios.put(`http://${urlServer}/update-bot/${botEdit.value?._id}`, {
         ...botDetail
       })
       const findBot = bots.value.findIndex(x => x._id === respone.data._id)

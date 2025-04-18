@@ -34,7 +34,7 @@ const userDetail = reactive({
   credit: '',
   role: ''
 })
-
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const totalPages = computed(() => Math.ceil(totalItems.value / perPage.value))
 const visiblePages = computed(() => {
@@ -55,7 +55,7 @@ const visiblePages = computed(() => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await axios.get('http://localhost:3000/list-user', {
+    const response = await axios.get(`http://${urlServer}/list-user`, {
       params: {
         page: currentPage.value,
         limit: perPage.value
@@ -109,7 +109,7 @@ const getUserDetail = async (id: string) => {
 const updateUserDetail = async () => {
 
   try {
-    const respone = await axios.put(`http://localhost:3000/update-user/${userEdit.value?._id}`, {
+    const respone = await axios.put(`http://${urlServer}/update-user/${userEdit.value?._id}`, {
       ...userDetail, credit: Number(userDetail.credit)
     })
     const findUser = users.value.findIndex(x => x._id === respone.data._id)

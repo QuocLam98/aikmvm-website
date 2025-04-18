@@ -12,6 +12,7 @@ const creditUsed = ref(0);
 
 const progressValue = computed(() => creditUsed.value);
 const maxValue = computed(() => credit.value);
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const progressClass = computed(() => {
   return 'progress-primary'; // Có thể thay đổi theo % nếu cần
@@ -22,7 +23,7 @@ onMounted(async () => {
   if (!email) return;
 
   try {
-    const response = await axios.post<User>('http://localhost:3000/get-user', {
+    const response = await axios.post<User>(`http://${urlServer}/get-user`, {
       email: email,
     });
 

@@ -28,7 +28,7 @@ const currentPage = ref(1)
 const perPage = ref(10)
 const perPageOptions = ref([10, 20, 50, 100])
 const loading = ref(false)
-
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const totalPages = computed(() => Math.ceil(totalItems.value / perPage.value))
 const visiblePages = computed(() => {
@@ -49,7 +49,7 @@ const visiblePages = computed(() => {
 const fetchUsers = async () => {
   loading.value = true
   try {
-    const response = await axios.get('http://localhost:3000/list-message', {
+    const response = await axios.get(`http://${urlServer}/list-message`, {
       params: {
         page: currentPage.value,
         limit: perPage.value

@@ -10,6 +10,7 @@ const errorMessage = ref('');
 const emailError = ref('');
 const passwordError = ref('');
 const router = useRouter();
+const urlServer = import.meta.env.VITE_URL_SERVER
 
 const validate = () => {
     emailError.value = '';
@@ -39,7 +40,7 @@ const login = async () => {
     if (!validate()) return;
     errorMessage.value = '';
     try {
-        const response = await axios.post('http://localhost:3000/login', {
+        const response = await axios.post(`http://${urlServer}/login`, {
             email: email.value,
             password: password.value,
         });
