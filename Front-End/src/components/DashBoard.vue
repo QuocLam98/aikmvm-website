@@ -97,7 +97,7 @@ const logout = () => {
 </script>
 
 <template>
-  <div :class="['drawer lg:drawer-open', { 'drawer-open': isNavOpen == true }]">
+  <div :class="['drawer lg:drawer-open', { 'd-none': isNavOpen == false }]">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" v-model="isNavOpen" />
     <div class="drawer-content bg-base-300">
       <!-- Page content here -->

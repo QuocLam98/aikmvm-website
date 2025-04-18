@@ -132,3 +132,6 @@ color-mix(in oklab, #0C0E14 10%, transparent);
 .fade-leave-to {
   @apply opacity-0;
 }
+.d-none{
+    display: none;
+}
