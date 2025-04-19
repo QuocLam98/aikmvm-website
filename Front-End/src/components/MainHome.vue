@@ -19,11 +19,11 @@ const items = ref<AccordionItem[]>([
   },
   {
     title: "AIknvm có cung cấp dịch vụ miễn phí không ?",
-    content: "Có. AIknvm cung cấp dịch vụ dùng thử miễn phí với 2 credits để bạn trải nghiệm AI Chatbot trước khi quyết định sử dụng gói dịch vụ trả phí. Lưu ý là mỗi tài khoản chỉ có thể đăng ký sử dụng miễn phí 1 lần duy nhất."
+    content: "Có. AIknvm cung cấp dịch vụ dùng thử miễn phí với 1 credits để bạn trải nghiệm AI Chatbot trước khi quyết định sử dụng gói dịch vụ trả phí. Lưu ý là mỗi tài khoản chỉ có thể đăng ký sử dụng miễn phí 1 lần duy nhất."
   },
   {
     title: "Tôi dùng thử miễn phí thì có bị giới hạn tính năng không?",
-    content: "Không, bạn có thể sử dụng AI Chatbot miễn phí với 2 credit với đầy đủ tính năng tuy nhiên tốc độ xử lý sẽ ở mức chậm. Trong thời gian này, bạn có thể trải nghiệm đầy đủ các tính năng của AI Chatbot AIknvm để xem liệu có phù hợp với nhu cầu của bạn hay không. Nếu bạn muốn tiếp tục sử dụng sau khi kết thúc thời gian dùng thử, bạn có thể chọn các gói dịch vụ phù hợp với bạn để tiếp tục tận hưởng các ưu đãi và tính năng của AI Chatbot AIknvm."
+    content: "Không, bạn có thể sử dụng AI Chatbot miễn phí với 1 credit với đầy đủ tính năng tuy nhiên tốc độ xử lý sẽ ở mức chậm. Trong thời gian này, bạn có thể trải nghiệm đầy đủ các tính năng của AI Chatbot AIknvm để xem liệu có phù hợp với nhu cầu của bạn hay không. Nếu bạn muốn tiếp tục sử dụng sau khi kết thúc thời gian dùng thử, bạn có thể chọn các gói dịch vụ phù hợp với bạn để tiếp tục tận hưởng các ưu đãi và tính năng của AI Chatbot AIknvm."
   },
   {
     title: 'Tôi dùng thử miễn phí có được hỗ trợ không?',
@@ -31,7 +31,7 @@ const items = ref<AccordionItem[]>([
   },
   {
     title: 'Cách tính credit như thế nào?',
-    content: 'AI Chatbot AIknvm được xây dựng trên nền tảng trí tuệ nhân tạo ChatGPT. Do đó, chúng tôi quy định 1 credit tương đương với 1 USD. Khi bạn sử dụng AI Chatbot AIknvm để trả lời các câu hỏi của khách hàng, theo cách tính phí của ChatGPT, cứ 750 từ = 0.002 đô. Vậy với 50.000đ bạn có thể trả lời cho khách hàng đến 750.000 từ. Bình quân nếu mỗi câu trả lời là 50 từ thì mỗi ngày chatbot AI AIknvm có thể giúp bạn trả lời khoảng 15.000 câu hỏi.'
+    content: 'AI Chatbot AIknvm được xây dựng trên nền tảng trí tuệ nhân tạo ChatGPT. Do đó, chúng tôi quy định 1 credit tương đương với 1 USD. Khi bạn sử dụng AI Chatbot AIknvm để trả lời các câu hỏi của bạn, theo cách tính phí của ChatGPT, cứ 750 từ = 0.002 đô. Vậy với 50.000đ bạn có thể nhận câu trả lời của Chatbot AI đến 750.000 từ. Bình quân nếu mỗi câu trả lời là 50 từ thì mỗi ngày chatbot AI AIknvm có thể giúp bạn trả lời khoảng 15.000 câu hỏi.'
   },
   {
     title: 'Cách thức thanh toán khi nâng cấp lên gói trả phí ?',
@@ -63,12 +63,16 @@ const toggleAccordion = (index: number) => {
           </div> -->
           <div class="flex flex-col">
             <strong class="text-strong text-black">
-              Chatbot tự động hỗ trợ tối ưu hóa công việc mà còn nâng cao chất lượng học tập và giao tiếp cho giáo viên,
-              học sinh, sinh viên, cán bộ công chức, doanh nhân và mọi cá nhân muốn tận dụng AI vào cuộc sống.
+              Chào mừng bạn đến với nền tảng AIknvm Web –
+              Trợ lý ảo thông minh, giúp bạn giải quyết mọi vấn đề từ học tập, công việc đến cuộc sống thường nhật.
             </strong>
             <strong class="text-strong text-black">
-              Một trợ lý thông minh, đầy trách nhiệm sẽ cùng đồng hành với bạn trong suốt quá trình học tập, công tác,
-              kiếm tiền hay sáng tạo nội dung.
+              Với giao diện thân thiện, sử dụng dễ dàng, bạn chỉ cần đặt câu hỏi –
+              AIknvm sẽ mang lại câu trả lời chính xác, nhanh chóng và hiệu quả
+            </strong>
+            <strong class="text-strong text-black">
+              Tiết kiệm thời gian – Chi phí tối ưu – Tăng chất lượng công việc vượt trội.
+              Trải nghiệm ngay – Không cần chờ đợi!
             </strong>
           </div>
         </div>
@@ -81,7 +85,7 @@ const toggleAccordion = (index: number) => {
       <div class="benefit-cotent">
         <h1>Lợi ích vượt trội</h1>
         <div class="flex gap-8">
-          <div class="card-benefit">
+          <div class="card-benefit" style="width: 350px;">
             <span class="icon-benefit">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-50">
@@ -91,13 +95,13 @@ const toggleAccordion = (index: number) => {
 
             </span>
             <h1>
-              Tăng thời gian hoàn thành công việc
+              Tiết kiệm thời gian
             </h1>
             <span>
-              Bằng việc AI Chatbot tự động tư vấn và hỗ trợ trong công việc và học tập của bạn.
+              Nhận câu trả lời, giải pháp tức thì chỉ trong vài giây – không cần tìm kiếm nhiều.
             </span>
           </div>
-          <div class="card-benefit">
+          <div class="card-benefit" style="width: 350px;">
             <span class="icon-benefit">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-50">
@@ -107,10 +111,25 @@ const toggleAccordion = (index: number) => {
 
             </span>
             <h1>
-              Giảm 90% thời gian và chi phí
+              Tiết kiệm chi phí
             </h1>
             <span>
-              Với chi phí sử dụng hợp lý và thời gian trả kết quả theo yêu cầu của bạn.
+              Không tốn tiền thuê chuyên gia – ChatGPT hỗ trợ như một trợ lý ảo thông minh phục vụ bạn suốt ngày đêm.
+            </span>
+          </div>
+          <div class="card-benefit" style="width: 350px;">
+            <span class="icon-benefit">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-50" viewBox="0 0 2048 2048">
+                <path fill="currentColor"
+                  d="m1155 1920l128 128H256V256h512q0-53 20-99t55-82t81-55t100-20q53 0 99 20t82 55t55 81t20 100h512v1027l-128 128V384h-128v256H512V384H384v1536zM640 384v128h768V384h-256V256q0-27-10-50t-27-40t-41-28t-50-10q-27 0-50 10t-40 27t-28 41t-10 50v128zm1389 1069l-557 558l-269-270l90-90l179 178l467-466z" />
+              </svg>
+            </span>
+            <h1>
+              Nâng cao chất lượng công việc
+            </h1>
+            <span>
+              Đưa ra các giải pháp tối ưu, nội dung tin cậy, phân tích dữ liệu chuyên sâu nhằm nâng cao chất lượng và
+              tăng hiệu suất gấp nhiều lần!
             </span>
           </div>
         </div>
@@ -169,6 +188,27 @@ const toggleAccordion = (index: number) => {
               </g>
             </svg>
             <span>Hỗ trợ đa ngôn ngữ</span>
+          </div>
+          <div class="feature-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                <path fill="currentColor"
+                  d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-5a1 1 0 1 0-2 0v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h8a1 1 0 1 0 0-2zm15.358 3.045a1 1 0 0 0 .375-1.363a1.01 1.01 0 0 0-1.364-.375c-.353.2-.694.424-1.03.65a30 30 0 0 0-2.463 1.847c-1.642 1.366-3.614 3.29-5.239 5.718a10 10 0 0 0-1.746-1.784c-.427-.333-.902-.66-1.415-.846h-.001a1 1 0 0 0-.689 1.878c.025.01.37.15.876.545c.578.45 1.376 1.239 2.146 2.557a1 1 0 0 0 1.733-.01c1.584-2.791 3.787-5 5.614-6.52c.91-.757 1.72-1.336 2.298-1.724c.295-.199.595-.394.904-.572Z" />
+              </g>
+            </svg>
+            <span>Tùy chọn chuyên sâu theo lĩnh vực</span>
+          </div>
+          <div class="feature-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 2l-9 3.5v6.5c0 3.5 3.5 9 8 10c4.5 -1 8 -6.5 8 -10v-6.5l-8 -3.5Z">
+                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0" />
+              </path>
+            </svg>
+            <span>Bảo mật cao</span>
           </div>
         </div>
       </div>

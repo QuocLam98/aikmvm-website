@@ -12,7 +12,7 @@ import '../assets/header.css'
                 </div>
                 <div class="header-button">
                     <ul class="lg-li hidden lg:flex">
-                        <li href="/" class="text-xl">
+                        <!-- <li href="/" class="text-xl">
                             <a href="/">
                                 Giới thiệu
                             </a>
@@ -26,7 +26,7 @@ import '../assets/header.css'
                             <a href="/">
                                 Hướng dẫn                                
                             </a>
-                        </li>
+                        </li> -->
                         <li class="button-login">
                             <a href="/login">
                                 ĐĂNG NHẬP
