@@ -8,7 +8,7 @@ import axios from 'axios';
 const router = useRouter()
 const isNavOpen = ref(true)
 const checkRole = ref(true)
-const showModal2 = ref(true)
+const showModal2 = ref(false)
 const showModal3 = ref(false)
 const bankName = import.meta.env.VITE_NAME_BANK
 const bankAccount = import.meta.env.VITE_BANK_ACCOUNT
@@ -34,7 +34,7 @@ const getQR = async () => {
     const response = await axios.post('https://api.vietqr.io/v2/generate', {
       accountNo: bankAccount,
       accountName: 'AI kỷ nguyên vươn mình',
-      acqId: '970436',
+      acqId: '970425',
       amount: amount,
       addInfo: email,
       format: 'text',
@@ -50,7 +50,7 @@ const getQR = async () => {
 }
 
 const goToPayment = async (item: any) => {
-  selectedPrice.value = item.price
+  selectedPrice.value = item.price + " " + item.format
   const email = localStorage.getItem('email') || 'guest@example.com'
   paymentNote.value = `${email}`
 
