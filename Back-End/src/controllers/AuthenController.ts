@@ -3,9 +3,19 @@ import User from '../models/UserModel'
 import * as argon2 from "argon2"
 import AuthMiddleware from '~/middlewares/AuthMiddleware'
 import app from '~/app'
+import mjml2html from 'mjml'
+import fs from 'fs'
+import nodemailer from 'nodemailer'
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
-
+const templateSrc = fs.readFileSync('../templates/verify-email.mjml', 'utf8')
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // hoặc dùng smtp riêng
+  auth: {
+    user: 'quoclam4a@gmail.com',
+    pass: 'Vodanh123#' // dùng app password nếu gmail
+  }
+})
 const controllerAuthen = new Elysia()
   .post('/register', async ({ body }) => {
     const exists = await User.find({ email: body.email })
@@ -14,12 +24,25 @@ const controllerAuthen = new Elysia()
       status: 404
     }
 
-    await User.create({
+   const createUser = await User.create({
       name: body.name,
       email: body.email,
       password: await argon2.hash(body.password),
       active: true,
       role: 'user'
+    })
+    const token = await app.service.swat.create(createUser.id, '', Date.now() + 28800)
+    const filledTemplate = templateSrc
+  .replace('{{link}}', `http://aiknvm.vn/verify?token=${token}`)
+  .replace('{{year}}', new Date().getFullYear().toString())
+
+    const html = mjml2html(filledTemplate).html
+
+    await transporter.sendMail({
+      from: 'quoclam4a@gmail.com',
+      to: body.email,
+      subject: 'Xác minh email của bạn',
+      html
     })
 
     return {
@@ -153,5 +176,24 @@ const controllerAuthen = new Elysia()
       limit: t.Optional(t.Number({ minimum: 1, maximum: 50 }))
     })
   })
+  .get('/verify', async ({ query  }) => {
+    
+    const token = query.token as string
 
+    if (!token) return { success: false, message: 'Thiếu token' }
+
+    const getId = app.service.swat.parse(token)
+
+    if (!getId) return { status: false, message: 'Thiếu token' }
+  
+    const getUser = await User.findById(getId)
+
+    if (!getUser) return { status: 404, message: 'false' }
+
+    await getUser.updateOne({
+      confirm: true
+    })
+  
+    return { status: 200, message: 'Xác minh thành công' }
+  })
 export default controllerAuthen
