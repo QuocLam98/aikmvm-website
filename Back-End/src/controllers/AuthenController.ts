@@ -3,22 +3,12 @@ import User from '../models/UserModel'
 import * as argon2 from "argon2"
 import AuthMiddleware from '~/middlewares/AuthMiddleware'
 import app from '~/app'
-import mjml2html from 'mjml'
-import fs from 'fs'
-import nodemailer from 'nodemailer'
-import path from 'path'
+import { Resend } from 'resend';
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
-const templatePath = path.resolve(__dirname, './templates/verify-email.mjml')
-const templateSrc = fs.readFileSync(templatePath, 'utf8')
+const resend = new Resend(app.service.config.API_KEY_SEND_MAIL);
+const url = app.service.config.URL_CLIENT
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // hoặc dùng smtp riêng
-  auth: {
-    user: 'quoclam4a@gmail.com',
-    pass: 'Vodoi810@' // dùng app password nếu gmail
-  }
-})
 const controllerAuthen = new Elysia()
   .post('/register', async ({ body }) => {
     const exists = await User.find({ email: body.email })
@@ -36,18 +26,6 @@ const controllerAuthen = new Elysia()
       confirm: false
     })
     const token = await app.service.swat.create(createUser.id, '', Date.now() + 28800)
-    const filledTemplate = templateSrc
-  .replace('{{link}}', `http://aiknvm.vn/verify?token=${token}`)
-  .replace('{{year}}', new Date().getFullYear().toString())
-
-    const html = mjml2html(filledTemplate).html
-
-    await transporter.sendMail({
-      from: 'quoclam4a@gmail.com',
-      to: body.email,
-      subject: 'Xác minh email của bạn',
-      html
-    })
 
     return {
       message: 'created',
@@ -199,5 +177,14 @@ const controllerAuthen = new Elysia()
     })
   
     return { status: 200, message: 'Xác minh thành công' }
+  })
+  .get('/sendmail', async () => {
+    const token = await app.service.swat.create('user', '', Date.now() + 28800)
+    resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'quoclam4a@gmail.com',
+      subject: 'Hello World',
+      html: `<button background-color="#007bff" color="white" font-size="16px" padding="10px 25px" border-radius="6px" href="${url}/verify?token=${token}">Xác minh email</button>`
+    });
   })
 export default controllerAuthen
