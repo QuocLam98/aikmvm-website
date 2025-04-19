@@ -10,11 +10,13 @@ import Payment from '@/components/Payment.vue';
 import ListUser from '@/components/ListUser.vue';
 import ListBot from '@/components/ListBot.vue';
 import ListChat from '@/components/ListChat.vue';
+import Verify from '@/components/Verify.vue';
 
 const routes = [
   { path: '/', component: HomeView }, // Trang chính
   { path: '/login', component: LoginView }, // Chỉ hiển thị LoginView khi vào /login
   { path: '/register', component: Register},
+  { path: '/verify', component: Verify},
   { path: '/dashboard', component: DashBoardView,
     linkActiveClass: 'border-indigo-500',
     linkExactActiveClass: 'border-indigo-700',
