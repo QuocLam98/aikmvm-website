@@ -5,6 +5,7 @@ import axios from 'axios';
 import '../assets/login.css';
 
 const email = ref('');
+const name = ref('')
 const password = ref('');
 const confirmPassword = ref('');
 const errorMessage = ref('');
@@ -82,6 +83,11 @@ const register = async () => {
                 <label>Email</label>
                 <input v-model="email" type="email" class="input" placeholder="Nhập email" />
                 <p v-if="emailError" class="text-red-500">{{ emailError }}</p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label>Tên tài khoản</label>
+                <input v-model="name" type="text" class="input" placeholder="Nhập tên tài khoản" />
             </div>
 
             <div class="flex flex-col gap-2">
