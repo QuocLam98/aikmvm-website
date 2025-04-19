@@ -11,10 +11,10 @@ app.start(async () => {
     http.use(swagger())
   http.use(
 		cors({
-			origin: 'https://' + app.service.config.URL_CLIENT
+			origin: app.service.config.URL_CLIENT
 		})
 	)
-  console.log('https://' + app.service.config.URL_CLIENT)
+  
   http.use(routers)
   http.listen({
     port: 3000,
