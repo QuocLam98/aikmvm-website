@@ -32,7 +32,8 @@ const controllerAuthen = new Elysia()
       email: body.email,
       password: await argon2.hash(body.password),
       active: true,
-      role: 'user'
+      role: 'user',
+      confirm: false
     })
     const token = await app.service.swat.create(createUser.id, '', Date.now() + 28800)
     const filledTemplate = templateSrc
