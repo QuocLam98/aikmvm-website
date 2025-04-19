@@ -8,7 +8,7 @@ import fs from 'fs'
 import nodemailer from 'nodemailer'
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
-const templateSrc = fs.readFileSync('./templates/verify-email.mjml', 'utf8')
+const templateSrc = fs.readFileSync('../templates/verify-email.mjml', 'utf8')
 const transporter = nodemailer.createTransport({
   service: 'gmail', // hoặc dùng smtp riêng
   auth: {
