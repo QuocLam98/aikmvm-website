@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail', // hoặc dùng smtp riêng
   auth: {
     user: 'quoclam4a@gmail.com',
-    pass: 'Vodanh123#' // dùng app password nếu gmail
+    pass: 'Vodoi810@' // dùng app password nếu gmail
   }
 })
 const controllerAuthen = new Elysia()
