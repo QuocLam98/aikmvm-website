@@ -14,7 +14,7 @@ app.start(async () => {
 			origin: app.service.config.URL_CLIENT
 		})
 	)
-  
+  console.log(app.service.config.URL_CLIENT)
   http.use(routers)
   http.listen({
     port: 3000,

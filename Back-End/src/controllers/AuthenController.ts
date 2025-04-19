@@ -6,9 +6,12 @@ import app from '~/app'
 import mjml2html from 'mjml'
 import fs from 'fs'
 import nodemailer from 'nodemailer'
+import path from 'path'
 
 const idMongodb = t.String({ format: 'regex', pattern: '[0-9a-f]{24}$' })
-const templateSrc = fs.readFileSync('../templates/verify-email.mjml', 'utf8')
+const templatePath = path.resolve(__dirname, './templates/verify-email.mjml')
+const templateSrc = fs.readFileSync(templatePath, 'utf8')
+
 const transporter = nodemailer.createTransport({
   service: 'gmail', // hoặc dùng smtp riêng
   auth: {
