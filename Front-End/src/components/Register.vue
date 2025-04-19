@@ -57,12 +57,11 @@ const validate = () => {
 const register = async () => {
     if (!validate()) return;
     errorMessage.value = '';
-    console.log(urlServer)
     try {
         await axios.post(`https://${urlServer}/register`, {
             email: email.value,
             password: password.value,
-            name: email.value
+            name: name.value
         });
 
         router.push('/login'); // Chuyển hướng đến trang đăng nhập
